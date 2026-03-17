@@ -35,6 +35,17 @@ collections:
                 required: true
               - { label: Href, name: href, widget: string, required: true }
               - { label: Label, name: label, widget: string, required: false }
+      - name: homepage
+        label: Homepage Content
+        file: src/lib/content/site/homepage.json
+        fields:
+          - { label: Name, name: name, widget: string, required: true, hint: "Displayed in accent color in the intro line" }
+          - { label: Intro Line, name: introLine, widget: string, required: true, hint: "Use {name} as placeholder for the styled name" }
+          - { label: Description, name: description, widget: text, required: true }
+          - { label: CTA Text, name: ctaText, widget: string, required: true }
+          - { label: CTA Link, name: ctaHref, widget: string, required: true }
+          - { label: Experience CTA Text, name: experienceCtaText, widget: string, required: true }
+          - { label: Experience CTA Link, name: experienceCtaHref, widget: string, required: true }
 
   - name: posts
     label: Posts
