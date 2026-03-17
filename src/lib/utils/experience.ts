@@ -65,7 +65,5 @@ export function loadExperiences(): ExperienceEntryFormatted[] {
 		});
 	}
 
-	return entries.sort(
-		(a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
-	);
+	return entries.sort((a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime());
 }

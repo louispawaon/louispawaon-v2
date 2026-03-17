@@ -42,7 +42,7 @@
 
 	<a
 		href={ctaHref}
-		class="inline-flex items-center gap-1.5 text-sm font-light italic text-[#AAAAAA] transition-colors hover:text-primary sm:text-base"
+		class="inline-flex items-center gap-1.5 text-sm font-light text-[#AAAAAA] italic transition-colors hover:text-primary sm:text-base"
 	>
 		{ctaText}
 		<Icon icon="mdi:arrow-right" class="h-4 w-4" />

@@ -51,7 +51,7 @@
 			{footerLocation}
 		/>
 
-		<main class="flex-1 px-6 pb-8 pt-10 sm:pt-16 md:h-screen md:overflow-y-auto md:pt-24">
+		<main class="flex-1 px-6 pt-10 pb-8 sm:pt-16 md:h-screen md:overflow-y-auto md:pt-24">
 			{@render children()}
 		</main>
 	</div>
