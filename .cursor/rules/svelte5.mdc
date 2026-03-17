@@ -1,0 +1,302 @@
+---
+alwaysApply: true
+---
+# Svelte 5 + SvelteKit 2 Rules
+
+This project uses **Svelte 5** (runes mode), **SvelteKit 2**, **TypeScript**, **Tailwind CSS 4**, and **Vite**. All code MUST use Svelte 5 idioms. Never generate Svelte 3/4 patterns.
+
+---
+
+## Runes — the ONLY reactivity API
+
+### `$state` — reactive mutable state
+
+```svelte
+<script lang="ts">
+  let count = $state(0);
+  let items = $state<string[]>([]);
+</script>
+```
+
+- Use `$state` for any value that changes over time.
+- `$state` deeply proxies objects and arrays — mutations are tracked automatically.
+- Use `$state.raw<T>()` when you do NOT need deep reactivity (large lists, immutable data, performance-sensitive objects). Reassignment is still tracked.
+- NEVER use legacy `let x = 0` expecting it to be reactive — it won't be in runes mode.
+
+### `$derived` — computed values
+
+```svelte
+<script lang="ts">
+  let count = $state(0);
+  let doubled = $derived(count * 2);
+  let expensive = $derived.by(() => {
+    // multi-statement derivation
+    const filtered = items.filter((i) => i.active);
+    return filtered.length;
+  });
+</script>
+```
+
+- Use `$derived(expr)` for single-expression derivations.
+- Use `$derived.by(() => { ... })` when you need multiple statements.
+- NEVER use `$:` reactive declarations — they do not exist in runes mode.
+
+### `$effect` — side effects
+
+```svelte
+<script lang="ts">
+  $effect(() => {
+    document.title = `Count: ${count}`;
+    // Return a cleanup function when needed
+    return () => { /* cleanup */ };
+  });
+</script>
+```
+
+- `$effect` runs after the DOM updates, re-runs when its tracked dependencies change.
+- `$effect` only runs in the browser (not during SSR).
+- Return a cleanup function for teardown (timers, subscriptions, listeners).
+- Use `$effect.pre(() => { ... })` if you need to run BEFORE DOM updates.
+- NEVER use `$effect` to synchronize state (`$effect(() => { other = count * 2 })`) — use `$derived` instead. `$effect` is for side effects that reach outside the component (DOM manipulation, logging, network calls).
+- NEVER use `onMount`, `beforeUpdate`, `afterUpdate` — use `$effect` and `$effect.pre` instead. The one exception: `onDestroy` still works but a cleanup return from `$effect` is preferred.
+
+### `$props` — component inputs
+
+```svelte
+<script lang="ts">
+  let {
+    title,
+    count = 0,
+    class: className = '',
+    children,
+    ...rest
+  }: {
+    title: string;
+    count?: number;
+    class?: string;
+    children?: import('svelte').Snippet;
+    [key: string]: unknown;
+  } = $props();
+</script>
+```
+
+- ALWAYS destructure from `$props()`.
+- NEVER use `export let` — it does not exist in runes mode.
+- Default values go in the destructuring pattern.
+- Use `class: className` to accept a `class` prop (reserved word).
+- Spread remaining props with `...rest` when wrapping native elements.
+- Type props inline or with a separate `type`/`interface`.
+
+### `$bindable` — two-way bindable props
+
+```svelte
+<script lang="ts">
+  let { value = $bindable('') }: { value?: string } = $props();
+</script>
+```
+
+- Wrap the default value with `$bindable()` to allow parent `bind:value`.
+- Only use when two-way binding is genuinely needed.
+
+### `$inspect` — dev-only debugging
+
+```svelte
+<script lang="ts">
+  $inspect(count); // logs to console when count changes (dev only, stripped in prod)
+</script>
+```
+
+---
+
+## Component Composition
+
+### Snippets replace slots
+
+Svelte 5 removes `<slot>`. Use `{#snippet}` and `{@render}` instead.
+
+**Declaring a snippet (local):**
+
+```svelte
+{#snippet row(item)}
+  <li>{item.name}</li>
+{/snippet}
+
+{@render row(selectedItem)}
+```
+
+**Accepting children (implicit snippet):**
+
+```svelte
+<!-- Parent -->
+<Card>
+  <p>Hello</p>
+</Card>
+
+<!-- Card.svelte -->
+<script lang="ts">
+  import type { Snippet } from 'svelte';
+  let { children }: { children: Snippet } = $props();
+</script>
+
+<div class="card">
+  {@render children()}
+</div>
+```
+
+**Named snippets (replace named slots):**
+
+```svelte
+<!-- Parent -->
+<Card>
+  {#snippet header()}
+    <h2>Title</h2>
+  {/snippet}
+  <p>Body content as children.</p>
+</Card>
+
+<!-- Card.svelte -->
+<script lang="ts">
+  import type { Snippet } from 'svelte';
+  let {
+    header,
+    children
+  }: {
+    header?: Snippet;
+    children: Snippet;
+  } = $props();
+</script>
+
+<div>
+  {#if header}{@render header()}{/if}
+  {@render children()}
+</div>
+```
+
+**Typed snippet with parameters:**
+
+```svelte
+<script lang="ts">
+  import type { Snippet } from 'svelte';
+  let {
+    row
+  }: {
+    row: Snippet<[item: { name: string; id: number }]>;
+  } = $props();
+</script>
+```
+
+### Events — use callback props
+
+Svelte 5 removes `createEventDispatcher`. Pass callback functions as props instead.
+
+```svelte
+<!-- Child -->
+<script lang="ts">
+  let { onclick }: { onclick?: (detail: string) => void } = $props();
+</script>
+<button onclick={() => onclick?.('clicked')}>Click</button>
+
+<!-- Parent -->
+<Child onclick={(detail) => console.log(detail)} />
+```
+
+- For DOM events, use the lowercase attribute directly: `onclick`, `oninput`, `onkeydown`, etc.
+- NEVER use `on:click` colon syntax — it is removed in Svelte 5.
+- NEVER use `createEventDispatcher`.
+
+---
+
+## TypeScript
+
+- ALWAYS use `<script lang="ts">` in `.svelte` files.
+- Type props inline inside the `$props()` destructuring or with a named type.
+- Use `.svelte.ts` (not `.ts`) for modules that use runes (`$state`, `$derived`, etc.) outside components.
+- Import types from `svelte` as needed: `Snippet`, `Component`, etc.
+
+---
+
+## SvelteKit Conventions
+
+- `+page.svelte` / `+layout.svelte` — route components.
+- `+page.ts` / `+layout.ts` — universal `load` functions (run on server AND client).
+- `+page.server.ts` / `+layout.server.ts` — server-only `load`, `actions`.
+- `+server.ts` — API endpoints (`GET`, `POST`, etc.).
+- Import `$app/navigation`, `$app/stores`, `$app/environment` for SvelteKit utilities.
+- In `+layout.svelte`, the child route is rendered via the `children` snippet: `{@render children()}`.
+- Access load data via `$props()`:
+
+```svelte
+<!-- +page.svelte -->
+<script lang="ts">
+  import type { PageData } from './$types';
+  let { data }: { data: PageData } = $props();
+</script>
+```
+
+---
+
+## Styling — Tailwind CSS 4
+
+- Use Tailwind utility classes directly in markup.
+- This project uses `tailwind-merge` and `clsx` for conditional class composition.
+- Use `tailwind-variants` for component variant styling.
+- NEVER use `<style>` blocks for things Tailwind handles. Only use `<style>` for truly custom CSS (animations, complex selectors, third-party overrides).
+
+---
+
+## Common Mistakes to AVOID
+
+| WRONG (Svelte 3/4)                              | CORRECT (Svelte 5)                                  |
+| ------------------------------------------------ | ---------------------------------------------------- |
+| `export let title`                               | `let { title } = $props()`                           |
+| `$: doubled = count * 2`                         | `let doubled = $derived(count * 2)`                  |
+| `$: { console.log(count) }`                      | `$effect(() => { console.log(count) })`              |
+| `<slot />`                                       | `{@render children()}`                               |
+| `<slot name="header" />`                         | `{@render header?.()}`                               |
+| `on:click={handler}`                             | `onclick={handler}`                                  |
+| `on:click\|preventDefault`                       | `onclick={(e) => { e.preventDefault(); handler(e) }}`|
+| `createEventDispatcher()`                        | Callback props: `let { onclick } = $props()`         |
+| `onMount(() => { ... })`                         | `$effect(() => { ... })`                             |
+| `import { writable } from 'svelte/store'`        | `let val = $state(initialValue)` in `.svelte.ts`     |
+| `$$restProps`                                    | `let { ...rest } = $props()`                         |
+| `$$slots.header`                                 | Check snippet prop: `{#if header}`                   |
+
+---
+
+## Shared Reactive State (replacing stores)
+
+Instead of Svelte stores, export reactive state from `.svelte.ts` files:
+
+```ts
+// counter.svelte.ts
+let count = $state(0);
+
+export function increment() {
+  count++;
+}
+
+export function getCount() {
+  return count;
+}
+```
+
+- File MUST use `.svelte.ts` extension so the compiler processes runes.
+- Prefer exporting getter functions or using `$derived` for read access to keep reactivity intact when consumed across components.
+
+---
+
+## Quick Reference
+
+```
+$state(value)          → mutable reactive state
+$state.raw(value)      → reactive (reassign only, no deep tracking)
+$derived(expr)         → computed from reactive values
+$derived.by(() => {})  → multi-statement computed
+$effect(() => {})      → side effect (runs after DOM update)
+$effect.pre(() => {})  → side effect (runs before DOM update)
+$props()               → component inputs (replaces export let)
+$bindable(default)     → marks a prop as two-way bindable
+$inspect(value)        → dev-only console logging
+{#snippet name()}      → define a reusable template block
+{@render name()}       → render a snippet
+```
