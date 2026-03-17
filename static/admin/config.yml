@@ -1,0 +1,113 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+
+backend:
+  name: github
+  repo: louispawaon/louispawaon-dev
+  branch: version3_svelte
+
+media_folder: static/media
+public_folder: /media
+
+collections:
+  - name: settings
+    label: Settings
+    files:
+      - name: site
+        label: Site Settings
+        file: src/lib/content/site/settings.json
+        fields:
+          - label: Sidebar Links
+            name: sidebarLinks
+            widget: list
+            summary: "{{fields.label}} → {{fields.href}}"
+            fields:
+              - { label: Label, name: label, widget: string, required: true }
+              - { label: Href, name: href, widget: string, required: true }
+          - label: Social Links
+            name: socialLinks
+            widget: list
+            summary: "{{fields.kind}} → {{fields.href}}"
+            fields:
+              - label: Kind
+                name: kind
+                widget: select
+                options: [github, linkedin, x, twitter, email]
+                required: true
+              - { label: Href, name: href, widget: string, required: true }
+              - { label: Label, name: label, widget: string, required: false }
+
+  - name: posts
+    label: Posts
+    label_singular: Post
+    folder: src/lib/content/posts
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: Title, name: title, widget: string, required: true }
+      - { label: Date, name: date, widget: datetime, default: "" }
+      - { label: Description, name: description, widget: text, required: false }
+      - { label: Body, name: body, widget: markdown, required: true }
+
+  - name: experience
+    label: Experience
+    label_singular: Experience Entry
+    folder: src/lib/content/experience
+    create: true
+    slug: "{{slug}}"
+    sortable_fields:
+      - commit_date
+      - commit_author
+      - title
+    default_sort_field: commit_date
+    default_sort_direction: descending
+    fields:
+      - { label: Company, name: company, widget: string, required: true }
+      - { label: Position, name: position, widget: string, required: true }
+      - { label: Location, name: location, widget: string, required: false }
+      - { label: Start Date, name: startDate, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, required: true }
+      - { label: End Date, name: endDate, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, required: false }
+      - { label: Current Position, name: current, widget: boolean, default: false, required: false }
+      - { label: Description, name: description, widget: markdown, required: true }
+      - { label: Technologies, name: technologies, widget: list, required: false, field: { label: Technology, name: technology, widget: string } }
+      - { label: Achievements, name: achievements, widget: list, required: false, field: { label: Achievement, name: achievement, widget: string } }
+
+  - name: tech_stack
+    label: Tech Stack
+    label_singular: Tech Stack Item
+    folder: src/lib/content/tech-stack
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: Name, name: name, widget: string, required: true }
+      - { label: Category, name: category, widget: select, options: ["Programming Languages", "Front-end Development", "Back-end Development", "Database Management", "Developer Tools"], required: true }
+      - { label: Description, name: description, widget: text, required: false }
+      - { label: Proficiency Level, name: proficiency, widget: select, options: ["Beginner", "Intermediate", "Advanced", "Expert"], required: false }
+      - { label: Years of Experience, name: yearsExperience, widget: number, value_type: "int", min: 0, required: false }
+      - { label: Icon URL, name: iconUrl, widget: image, required: false }
+      - { label: Official Website, name: website, widget: string, required: false }
+      - { label: Featured, name: featured, widget: boolean, default: false, required: false }
+
+  - name: projects
+    label: Projects
+    label_singular: Project
+    folder: src/lib/content/projects
+    create: true
+    slug: "{{slug}}"
+    sortable_fields:
+      - commit_date
+      - commit_author
+      - title
+      - date
+    default_sort_field: date
+    default_sort_direction: descending
+    fields:
+      - { label: Title, name: title, widget: string, required: true }
+      - { label: Description, name: description, widget: text, required: true }
+      - { label: Long Description, name: body, widget: markdown, required: false }
+      - { label: Featured Image, name: featuredImage, widget: image, required: false }
+      - { label: Date, name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, required: true }
+      - { label: Technologies, name: technologies, widget: list, required: true, field: { label: Technology, name: technology, widget: string } }
+      - { label: GitHub Repository, name: githubUrl, widget: string, required: false }
+      - { label: Live Demo URL, name: demoUrl, widget: string, required: false }
+      - { label: Featured, name: featured, widget: boolean, default: false, required: false }
+      - { label: Status, name: status, widget: select, options: ["Planning", "In Progress", "Completed", "Maintenance"], default: "Completed", required: false }
