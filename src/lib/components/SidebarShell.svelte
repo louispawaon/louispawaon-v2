@@ -33,7 +33,7 @@
 </script>
 
 <aside
-	class="border-border border-b px-6 pt-10 pb-10 sm:px-10 sm:pt-16 sm:pl-12 md:basis-1/2 md:border-b-0 md:h-screen md:flex-none md:self-start md:pt-24 md:pl-20"
+	class="border-b border-border px-6 pt-10 pb-10 sm:px-10 sm:pt-16 sm:pl-12 md:h-screen md:flex-none md:basis-1/2 md:self-start md:border-b-0 md:pt-24 md:pl-20"
 >
 	<div class="flex h-full flex-col justify-between gap-10">
 		<HeroGreeting {title} {role} {tagline} />
@@ -51,4 +51,3 @@
 		</div>
 	</div>
 </aside>
-

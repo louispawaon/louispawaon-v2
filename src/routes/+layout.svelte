@@ -33,10 +33,13 @@
 	<link rel="icon" href={favicon} />
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
-	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Epilogue:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+	<link
+		href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Epilogue:ital,wght@0,100..900;1,100..900&display=swap"
+		rel="stylesheet"
+	/>
 </svelte:head>
 
-<div class="min-h-screen bg-background text-foreground">	
+<div class="min-h-screen bg-background text-foreground">
 	<div class="flex min-h-screen flex-col md:h-screen md:flex-row md:overflow-hidden">
 		<SidebarShell
 			title="Migs"
@@ -44,8 +47,8 @@
 			tagline="I make things that make other things easier."
 			links={data.settings.sidebarLinks}
 			socialLinks={data.settings.socialLinks}
-			footerTime={footerTime}
-			footerLocation={footerLocation}
+			{footerTime}
+			{footerLocation}
 		/>
 
 		<main class="flex-1 px-6 py-8 md:h-screen md:overflow-y-auto">

@@ -2,9 +2,9 @@
 	let {
 		currentTime,
 		location,
-		prefix = "It’s currently",
-		connector = "here in",
-		class: className = ""
+		prefix = 'It’s currently',
+		connector = 'here in',
+		class: className = ''
 	}: {
 		currentTime?: string;
 		location?: string;
@@ -23,7 +23,8 @@
 {#if currentTime || location}
 	<p class={`mt-4 text-xs text-muted-foreground ${className}`.trim()}>
 		{#if currentTime && location}
-			{prefix} <span class="font-medium">{currentTime}</span> {connector}
+			{prefix} <span class="font-medium">{currentTime}</span>
+			{connector}
 			<span class="font-medium">{location}</span>.
 		{:else if currentTime}
 			{prefix} <span class="font-medium">{currentTime}</span>.
@@ -32,4 +33,3 @@
 		{/if}
 	</p>
 {/if}
-
