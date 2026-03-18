@@ -101,6 +101,7 @@ collections:
       - { label: Name, name: name, widget: string, required: true }
       - { label: Category, name: category, widget: select, options: ["Programming Languages", "Front-End Development", "Back-End Development", "Database Management", "Developer Tools"], required: true }
       - { label: Icon, name: icon, widget: string, required: true, hint: "Iconify icon identifier, e.g. logos:javascript" }
+      - { label: Order, name: order, widget: number, required: false, value_type: int, min: 0, hint: "Lower numbers show first within the category (falls back to name when empty)" }
       - { label: Description, name: description, widget: text, required: false }
 
   - name: projects
