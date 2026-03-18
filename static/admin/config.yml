@@ -46,6 +46,15 @@ collections:
           - { label: CTA Link, name: ctaHref, widget: string, required: true }
           - { label: Experience CTA Text, name: experienceCtaText, widget: string, required: true }
           - { label: Experience CTA Link, name: experienceCtaHref, widget: string, required: true }
+      - name: about
+        label: About Page Content
+        file: src/lib/content/site/about.json
+        fields:
+          - { label: Full Name, name: fullName, widget: string, required: true, hint: "Displayed in accent color in the intro line" }
+          - { label: Nickname, name: nickname, widget: string, required: true, hint: "Displayed in accent color in the intro line" }
+          - { label: Intro Line, name: introLine, widget: string, required: true, hint: "Use {fullName} and {nickname} as placeholders for the styled names" }
+          - { label: Description, name: description, widget: text, required: true }
+          - { label: Tech Stack Intro, name: techStackIntro, widget: string, required: true, hint: "Italic text shown above the tech stack grid" }
 
   - name: posts
     label: Posts
@@ -90,13 +99,9 @@ collections:
     slug: "{{slug}}"
     fields:
       - { label: Name, name: name, widget: string, required: true }
-      - { label: Category, name: category, widget: select, options: ["Programming Languages", "Front-end Development", "Back-end Development", "Database Management", "Developer Tools"], required: true }
+      - { label: Category, name: category, widget: select, options: ["Programming Languages", "Front-End Development", "Back-End Development", "Database Management", "Developer Tools"], required: true }
+      - { label: Icon, name: icon, widget: string, required: true, hint: "Iconify icon identifier, e.g. logos:javascript" }
       - { label: Description, name: description, widget: text, required: false }
-      - { label: Proficiency Level, name: proficiency, widget: select, options: ["Beginner", "Intermediate", "Advanced", "Expert"], required: false }
-      - { label: Years of Experience, name: yearsExperience, widget: number, value_type: "int", min: 0, required: false }
-      - { label: Icon URL, name: iconUrl, widget: image, required: false }
-      - { label: Official Website, name: website, widget: string, required: false }
-      - { label: Featured, name: featured, widget: boolean, default: false, required: false }
 
   - name: projects
     label: Projects

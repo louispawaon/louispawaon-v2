@@ -1,7 +1,9 @@
 <script lang="ts">
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.svg';
+	import Icon from '@iconify/svelte';
 	import SidebarShell from '$lib/components/SidebarShell.svelte';
+	import { page } from '$app/state';
 	import { onMount } from 'svelte';
 	import { DEFAULT_LOCATION, getCurrentTime } from '$lib/utils';
 	import type { LayoutData } from './$types';
@@ -53,6 +55,18 @@
 
 		<main class="flex-1 px-6 pt-10 pb-8 sm:pt-16 md:h-screen md:overflow-y-auto md:pt-24">
 			{@render children()}
+
+			{#if page.url.pathname !== '/'}
+				<div class="mt-[135px] mb-8">
+					<a
+						href="/"
+						class="inline-flex items-center gap-1.5 text-sm font-light text-[#AAAAAA] italic transition-colors hover:text-primary"
+					>
+						<Icon icon="mdi:arrow-left" class="h-4 w-4" />
+						Let's go back
+					</a>
+				</div>
+			{/if}
 		</main>
 	</div>
 </div>
