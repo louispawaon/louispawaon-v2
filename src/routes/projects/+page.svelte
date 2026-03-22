@@ -7,7 +7,6 @@
 </script>
 
 <svelte:head>
-	<title>Projects — Migs</title>
 	<meta name="description" content="Project archive" />
 </svelte:head>
 

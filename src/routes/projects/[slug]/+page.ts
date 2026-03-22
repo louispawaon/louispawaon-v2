@@ -10,6 +10,7 @@ export const load: PageLoad = ({ params }) => {
 
 	return {
 		project,
-		carouselImages: getCarouselImages(project)
+		carouselImages: getCarouselImages(project),
+		meta: { title: `${project.title} — Projects — Migs` }
 	};
 };

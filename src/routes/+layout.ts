@@ -14,6 +14,7 @@ export const load: LayoutLoad = async () => {
 	const settings = (mod as unknown as { default: SiteSettings }).default;
 
 	return {
-		settings
+		settings,
+		meta: { title: 'Migs' }
 	};
 };

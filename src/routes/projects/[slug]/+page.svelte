@@ -16,7 +16,6 @@
 </script>
 
 <svelte:head>
-	<title>{project.title} — Projects — Migs</title>
 	<meta name="description" content={project.description} />
 </svelte:head>
 

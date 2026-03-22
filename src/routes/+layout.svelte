@@ -1,6 +1,5 @@
 <script lang="ts">
 	import './layout.css';
-	import favicon from '$lib/assets/favicon.svg';
 	import Icon from '@iconify/svelte';
 	import SidebarShell from '$lib/components/SidebarShell.svelte';
 	import { page } from '$app/state';
@@ -66,10 +65,13 @@
 		data: LayoutData;
 		children: any;
 	} = $props();
+
+	const documentTitle = $derived(page.data.meta?.title ?? 'Migs');
 </script>
 
 <svelte:head>
-	<link rel="icon" href={favicon} />
+	<title>{documentTitle}</title>
+	<link rel="icon" href="/migs-font.svg" type="image/svg+xml" />
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
 	<link

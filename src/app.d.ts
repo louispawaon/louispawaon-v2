@@ -4,7 +4,10 @@ declare global {
 	namespace App {
 		// interface Error {}
 		// interface Locals {}
-		// interface PageData {}
+		interface PageData {
+			/** Document title; set from route `load` or root layout default. */
+			meta?: { title: string };
+		}
 		// interface PageState {}
 		// interface Platform {}
 	}

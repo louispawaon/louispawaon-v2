@@ -19,5 +19,9 @@ export const load: PageLoad = async () => {
 	const about = (mod as unknown as { default: AboutContent }).default;
 	const techStack = loadTechStack();
 
-	return { about, techStack };
+	return {
+		about,
+		techStack,
+		meta: { title: 'About — Migs' }
+	};
 };
