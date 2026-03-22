@@ -4,9 +4,46 @@
 	import Icon from '@iconify/svelte';
 	import SidebarShell from '$lib/components/SidebarShell.svelte';
 	import { page } from '$app/state';
-	import { onMount } from 'svelte';
+	import { afterNavigate, onNavigate } from '$app/navigation';
+	import { onMount, tick } from 'svelte';
 	import { DEFAULT_LOCATION, getCurrentTime } from '$lib/utils';
+	import { flyUnlessReduced } from '$lib/utils/motion-transitions';
 	import type { LayoutData } from './$types';
+
+	let mainEl = $state<HTMLElement | null>(null);
+
+	function scrollProjectsRouteToTop() {
+		const opts = { top: 0, left: 0, behavior: 'instant' as const };
+		mainEl?.scrollTo(opts);
+		window.scrollTo(opts);
+	}
+
+	onNavigate((navigation) => {
+		if (typeof document === 'undefined' || !document.startViewTransition) return;
+
+		return new Promise<void>((resolve) => {
+			document.startViewTransition(async () => {
+				resolve();
+				await navigation.complete;
+				const path = navigation.to?.url.pathname ?? '';
+				if (path.startsWith('/projects')) {
+					scrollProjectsRouteToTop();
+					await tick();
+				}
+			});
+		});
+	});
+
+	/**
+	 * `main` is `overflow-y-auto` on md+; SvelteKit only resets `window` scroll, so we also reset `main`.
+	 * When View Transitions run, scrolling here again covers timing after the transition snapshot.
+	 */
+	afterNavigate((navigation) => {
+		const path = navigation.to?.url.pathname ?? '';
+		if (!path.startsWith('/projects')) return;
+		scrollProjectsRouteToTop();
+		void tick().then(() => scrollProjectsRouteToTop());
+	});
 
 	let footerTime = $state('');
 	const footerLocation = DEFAULT_LOCATION;
@@ -53,7 +90,11 @@
 			{footerLocation}
 		/>
 
-		<main class="flex-1 px-6 pt-10 pb-8 sm:pt-16 md:h-screen md:overflow-y-auto md:pt-24">
+		<main
+			bind:this={mainEl}
+			in:flyUnlessReduced={{ y: 14, duration: 400, delay: 70, opacity: 0 }}
+			class="flex-1 scroll-smooth px-6 pt-10 pb-8 motion-reduce:scroll-auto sm:pt-16 md:h-screen md:overflow-y-auto md:pt-24"
+		>
 			{@render children()}
 
 			{#if page.url.pathname !== '/'}
