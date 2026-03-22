@@ -4,6 +4,8 @@ backend:
   name: github
   repo: louispawaon/louispawaon-dev
   branch: version3_svelte
+  base_url: https://louispawaon.pages.dev
+  auth_endpoint: oauth/authorize
 
 media_folder: static/media
 public_folder: /media
