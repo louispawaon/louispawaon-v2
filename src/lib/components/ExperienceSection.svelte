@@ -6,16 +6,18 @@
 	let {
 		experiences,
 		ctaText,
-		ctaHref
+		ctaHref,
+		id: sectionId = undefined
 	}: {
 		experiences: ExperienceEntryFormatted[];
 		ctaText: string;
 		ctaHref: string;
+		id?: string;
 	} = $props();
 </script>
 
 {#if experiences.length}
-	<section class="flex flex-col gap-[34px]">
+	<section id={sectionId} class="flex flex-col gap-[34px]">
 		<div class="border-l-2 border-l-[#1C3A5A]">
 			<div class="flex flex-col gap-[32px]">
 				{#each experiences as experience}

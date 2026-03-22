@@ -1,18 +1,24 @@
 <script lang="ts">
-	import Icon from '@iconify/svelte';
+	import Icon from '@iconify/svelte';	
+	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
+	import type { HTMLAttributes } from 'svelte/elements';
 
 	let {
 		name,
 		introLine,
 		description,
 		ctaText,
-		ctaHref
+		ctaHref,
+		connectEmailHref = '',
+		id: sectionId = undefined
 	}: {
 		name: string;
 		introLine: string;
 		description: string;
 		ctaText: string;
 		ctaHref: string;
+		connectEmailHref?: string;
+		id?: string;
 	} = $props();
 
 	const introParts = $derived.by(() => {
@@ -25,9 +31,33 @@
 	});
 
 	const paragraphs = $derived(description.split('\n').filter((p) => p.trim().length > 0));
+
+	const CONNECT_RE = /\b(connect)\b/g;
+
+	type Segment = { kind: 'text'; text: string } | { kind: 'connect'; text: string };
+
+	function segmentParagraph(paragraph: string): Segment[] {
+		const segments: Segment[] = [];
+		let last = 0;
+		let m: RegExpExecArray | null;
+		const re = new RegExp(CONNECT_RE.source, CONNECT_RE.flags);
+		while ((m = re.exec(paragraph)) !== null) {
+			if (m.index > last) {
+				segments.push({ kind: 'text', text: paragraph.slice(last, m.index) });
+			}
+			segments.push({ kind: 'connect', text: m[1] });
+			last = m.index + m[0].length;
+		}
+		if (last < paragraph.length) {
+			segments.push({ kind: 'text', text: paragraph.slice(last) });
+		}
+		return segments.length > 0 ? segments : [{ kind: 'text', text: paragraph }];
+	}
+
+	const emailDisplay = $derived(connectEmailHref.replace(/^mailto:/i, ''));
 </script>
 
-<section class="flex flex-col gap-[34px]">
+<section id={sectionId} class="flex flex-col gap-[34px]">
 	<div class="space-y-6">
 		<p class="text-lg leading-relaxed text-muted-foreground sm:text-xl lg:text-2xl">
 			{introParts.before}<span class="font-semibold text-primary">{name}</span>{introParts.after}
@@ -35,7 +65,41 @@
 
 		{#each paragraphs as paragraph}
 			<p class="text-lg leading-relaxed text-muted-foreground sm:text-xl lg:text-2xl">
-				{paragraph}
+				{#each segmentParagraph(paragraph) as seg}
+					{#if seg.kind === 'text'}
+						{seg.text}
+					{:else if connectEmailHref}
+						<Tooltip.Tooltip>
+							<Tooltip.TooltipTrigger>
+								{#snippet child({ props }: { props: HTMLAttributes<HTMLSpanElement> })}
+									<span
+										{...props}
+										class="cursor-help underline decoration-dotted decoration-2 decoration-primary underline-offset-[0.35em]"
+										>{seg.text}</span
+									>
+								{/snippet}
+							</Tooltip.TooltipTrigger>
+							<Tooltip.TooltipContent
+								side="bottom"
+								sideOffset={8}
+								class="rounded-[6px] border border-transparent bg-[#333333] px-2.5 py-0.5 text-xs font-bold text-white"
+								arrowClasses="bg-[#333333] fill-[#333333]"
+							>
+								<a
+									href={connectEmailHref}
+									class="font-['Epilogue'] text-inherit underline-offset-2 outline-none hover:underline focus-visible:underline"
+								>
+									{emailDisplay}
+								</a>
+							</Tooltip.TooltipContent>
+						</Tooltip.Tooltip>
+					{:else}
+						<span
+							class="underline decoration-dotted decoration-2 decoration-primary underline-offset-[0.35em]"
+							>{seg.text}</span
+						>
+					{/if}
+				{/each}
 			</p>
 		{/each}
 	</div>

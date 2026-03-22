@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { flyUnlessReduced } from '$lib/utils/motion-transitions';
 	import SidebarFooterMeta from '$lib/components/SidebarFooterMeta.svelte';
 	import HeroActions from '$lib/components/HeroActions.svelte';
 	import HeroGreeting from '$lib/components/HeroGreeting.svelte';
@@ -33,6 +34,7 @@
 </script>
 
 <aside
+	in:flyUnlessReduced={{ y: 14, duration: 400, delay: 0, opacity: 0 }}
 	class="border-b border-border px-6 pt-10 pb-10 sm:px-10 sm:pt-16 sm:pl-12 md:h-screen md:flex-none md:basis-1/2 md:self-start md:border-b-0 md:pt-24 md:pl-20"
 >
 	<div class="flex h-full flex-col justify-between gap-10">
