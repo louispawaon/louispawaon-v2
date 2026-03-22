@@ -71,6 +71,16 @@
 	* {
 		@apply border-border outline-ring/50;
 	}
+	html {
+		scroll-behavior: smooth;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		html {
+			scroll-behavior: auto;
+		}
+	}
+
 	body {
 		@apply bg-background text-foreground antialiased selection:bg-primary/30 selection:text-primary;
 		font-family:
@@ -94,5 +104,43 @@
 			BlinkMacSystemFont,
 			'Segoe UI',
 			sans-serif;
+	}
+}
+
+/* View Transitions — root swap (named project transitions stay independent) */
+@keyframes vt-root-out {
+	from {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	to {
+		opacity: 0;
+		transform: translateY(6px);
+	}
+}
+
+@keyframes vt-root-in {
+	from {
+		opacity: 0;
+		transform: translateY(-6px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+::view-transition-old(root) {
+	animation: vt-root-out 260ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+::view-transition-new(root) {
+	animation: vt-root-in 280ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation: none;
 	}
 }

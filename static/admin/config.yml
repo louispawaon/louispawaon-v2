@@ -46,6 +46,8 @@ collections:
           - { label: CTA Link, name: ctaHref, widget: string, required: true }
           - { label: Experience CTA Text, name: experienceCtaText, widget: string, required: true }
           - { label: Experience CTA Link, name: experienceCtaHref, widget: string, required: true }
+          - { label: Projects CTA Text, name: projectsCtaText, widget: string, required: true }
+          - { label: Projects CTA Link, name: projectsCtaHref, widget: string, required: true }
       - name: about
         label: About Page Content
         file: src/lib/content/site/about.json
@@ -122,8 +124,37 @@ collections:
       - { label: Description, name: description, widget: text, required: true }
       - { label: Long Description, name: body, widget: markdown, required: false }
       - { label: Featured Image, name: featuredImage, widget: image, required: false }
+      - label: Gallery
+        name: gallery
+        widget: list
+        required: false
+        hint: "Additional screenshots; shown after featured image in the project carousel"
+        field: { label: Image, name: image, widget: image }
+      - { label: The Problem, name: problem, widget: text, required: false }
+      - { label: The Approach, name: approach, widget: text, required: false }
+      - label: Engineering Decisions
+        name: engineeringDecisions
+        widget: list
+        required: false
+        field: { label: Item, name: item, widget: string }
+      - label: Architecture
+        name: architecture
+        widget: list
+        required: false
+        field: { label: Item, name: item, widget: string }
+      - label: Outcome
+        name: outcome
+        widget: list
+        required: false
+        field: { label: Item, name: item, widget: string }
       - { label: Date, name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, required: true }
       - { label: Technologies, name: technologies, widget: list, required: true, field: { label: Technology, name: technology, widget: string } }
+      - label: Roles (homepage)
+        name: roles
+        widget: list
+        required: false
+        hint: "Up to 3; extras are ignored on the homepage"
+        field: { label: Role, name: role, widget: string }
       - { label: GitHub Repository, name: githubUrl, widget: string, required: false }
       - { label: Live Demo URL, name: demoUrl, widget: string, required: false }
       - { label: Featured, name: featured, widget: boolean, default: false, required: false }

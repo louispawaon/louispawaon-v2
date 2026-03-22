@@ -5,5 +5,7 @@
 	"ctaText": "Get to know me more",
 	"ctaHref": "/about",
 	"experienceCtaText": "View full experience sheet",
-	"experienceCtaHref": "https://drive.google.com/uc?export=download&id=1Is5Wtdn5zyJAdm_UL-KCdriQAG02Z8Fk"
+	"experienceCtaHref": "https://drive.google.com/uc?export=download&id=1Is5Wtdn5zyJAdm_UL-KCdriQAG02Z8Fk",
+	"projectsCtaText": "View full projects archive",
+	"projectsCtaHref": "/projects"
 }
