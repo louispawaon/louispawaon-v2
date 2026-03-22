@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
-	import ProjectGridCard from '$lib/components/ProjectGridCard.svelte';
+	import ProjectStackItem from '$lib/components/ProjectStackItem.svelte';
 	import type { ProjectEntry } from '$lib/utils/projects';
 
 	let {
@@ -10,33 +10,46 @@
 		id: sectionId = undefined
 	}: {
 		projects: ProjectEntry[];
-		ctaText: string;
-		ctaHref: string;
+		ctaText?: string;
+		ctaHref?: string;
 		id?: string;
 	} = $props();
 
-	const ctaIsExternal = $derived(/^https?:\/\//i.test(ctaHref) || ctaHref.startsWith('//'));
+	const ctaLink = $derived((ctaHref ?? '').trim());
+	const ctaLabel = $derived((ctaText ?? '').trim());
+	const showCta = $derived(Boolean(ctaLabel && ctaLink));
+	const ctaIsExternal = $derived(/^https?:\/\//i.test(ctaLink) || ctaLink.startsWith('//'));
+
+	const projectsArchiveHref = 'https://github.com/louispawaon?tab=repositories';
 </script>
 
 {#if projects.length}
 	<section id={sectionId} class="flex flex-col gap-[34px]">
-		<ul
-			class="grid list-none grid-cols-1 gap-x-[66px] gap-y-[34px] p-0 sm:grid-cols-2 lg:grid-cols-3"
-		>
-			{#each projects as project}
-				<li class="min-w-0">
-					<ProjectGridCard {project} />
-				</li>
+		<ul class="mx-auto flex w-full max-w-[840px] list-none flex-col gap-12 p-0 md:gap-14">
+			{#each projects as project (project.slug)}
+				<ProjectStackItem {project} />
 			{/each}
 		</ul>
 
+		{#if showCta}
+			<a
+				href={ctaLink}
+				target={ctaIsExternal ? '_blank' : undefined}
+				rel={ctaIsExternal ? 'noopener noreferrer' : undefined}
+				class="inline-flex items-center gap-1.5 text-sm font-light text-[#AAAAAA] italic transition-colors hover:text-primary sm:text-base"
+			>
+				{ctaLabel}
+				<Icon icon="mdi:arrow-right" class="h-4 w-4" />
+			</a>
+		{/if}
+
 		<a
-			href={ctaHref}
-			target={ctaIsExternal ? '_blank' : undefined}
-			rel={ctaIsExternal ? 'noopener noreferrer' : undefined}
+			href={projectsArchiveHref}
+			target="_blank"
+			rel="noopener noreferrer"
 			class="inline-flex items-center gap-1.5 text-sm font-light text-[#AAAAAA] italic transition-colors hover:text-primary sm:text-base"
 		>
-			{ctaText}
+			View my projects archive
 			<Icon icon="mdi:arrow-right" class="h-4 w-4" />
 		</a>
 	</section>

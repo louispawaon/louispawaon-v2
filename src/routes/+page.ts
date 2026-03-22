@@ -10,8 +10,8 @@ export type HomepageContent = {
 	ctaHref: string;
 	experienceCtaText: string;
 	experienceCtaHref: string;
-	projectsCtaText: string;
-	projectsCtaHref: string;
+	projectsCtaText?: string;
+	projectsCtaHref?: string;
 };
 
 export type PageLoadData = {

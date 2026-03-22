@@ -4,8 +4,7 @@
 			"label": "download resume",
 			"href": "https://drive.google.com/uc?export=download&id=1Is5Wtdn5zyJAdm_UL-KCdriQAG02Z8Fk"
 		},
-		{ "label": "get to know migs", "href": "/about" },
-		{ "label": "projects", "href": "/projects" }
+		{ "label": "get to know migs", "href": "/about" }
 	],
 	"socialLinks": [
 		{ "kind": "linkedin", "href": "https://www.linkedin.com/in/louispawaon/", "label": "LinkedIn" },

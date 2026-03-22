@@ -2,8 +2,8 @@
 
 backend:
   name: github
-  repo: louispawaon/louispawaon-dev
-  branch: version3_svelte
+  repo: louispawaon/louispawaon-v2
+  branch: main
   base_url: https://louispawaon.pages.dev
   auth_endpoint: oauth/authorize
 
@@ -48,8 +48,8 @@ collections:
           - { label: CTA Link, name: ctaHref, widget: string, required: true }
           - { label: Experience CTA Text, name: experienceCtaText, widget: string, required: true }
           - { label: Experience CTA Link, name: experienceCtaHref, widget: string, required: true }
-          - { label: Projects CTA Text, name: projectsCtaText, widget: string, required: true }
-          - { label: Projects CTA Link, name: projectsCtaHref, widget: string, required: true }
+          - { label: Projects CTA Text, name: projectsCtaText, widget: string, required: false }
+          - { label: Projects CTA Link, name: projectsCtaHref, widget: string, required: false }
       - name: about
         label: About Page Content
         file: src/lib/content/site/about.json

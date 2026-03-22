@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Icon from '@iconify/svelte';
 	import ProjectImageCarousel from '$lib/components/ProjectImageCarousel.svelte';
 	import { Badge } from '$lib/components/ui/badge';
 	import { flyUnlessReduced } from '$lib/utils/motion-transitions';
@@ -9,6 +10,10 @@
 
 	const project = $derived(data.project);
 	const carouselImages = $derived(data.carouselImages);
+
+	const demoHref = $derived((project.demoUrl ?? '').trim());
+	const repoHref = $derived((project.githubUrl ?? '').trim());
+	const hasProjectLinks = $derived(demoHref.length > 0 || repoHref.length > 0);
 
 	function hasItems(items: string[]): boolean {
 		return items.length > 0;
@@ -107,6 +112,36 @@
 							<li>{item}</li>
 						{/each}
 					</ul>
+				</section>
+			{/if}
+
+			{#if hasProjectLinks}
+				<section class="flex flex-col gap-8">
+					<h2 class="font-['DM_Sans'] text-2xl font-bold text-white">Links</h2>
+					<div class="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:gap-x-10 sm:gap-y-4">
+						{#if demoHref}
+							<a
+								href={demoHref}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="inline-flex items-center gap-1.5 font-['Epilogue'] text-lg text-muted-foreground underline-offset-4 transition-colors hover:text-primary hover:underline"
+							>
+								View live project
+								<Icon icon="mdi:open-in-new" class="h-5 w-5 shrink-0 opacity-80" aria-hidden="true" />
+							</a>
+						{/if}
+						{#if repoHref}
+							<a
+								href={repoHref}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="inline-flex items-center gap-1.5 font-['Epilogue'] text-lg text-muted-foreground underline-offset-4 transition-colors hover:text-primary hover:underline"
+							>
+								View repository
+								<Icon icon="mdi:open-in-new" class="h-5 w-5 shrink-0 opacity-80" aria-hidden="true" />
+							</a>
+						{/if}
+					</div>
 				</section>
 			{/if}
 		</div>
