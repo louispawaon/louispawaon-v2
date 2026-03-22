@@ -15,10 +15,6 @@
 	}
 </script>
 
-<svelte:head>
-	<meta name="description" content={project.description} />
-</svelte:head>
-
 <div class="flex flex-col">
 	<div class="mb-16">
 		<ProjectImageCarousel

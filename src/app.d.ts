@@ -5,8 +5,13 @@ declare global {
 		// interface Error {}
 		// interface Locals {}
 		interface PageData {
-			/** Document title; set from route `load` or root layout default. */
-			meta?: { title: string };
+			/**
+			 * Document title and optional per-route meta description (HTML + Open Graph).
+			 * Root layout also sets `ogDefaultDescription` so a page can override only `title`
+			 * without losing the site-wide OG description.
+			 */
+			meta?: { title: string; description?: string };
+			ogDefaultDescription?: string;
 		}
 		// interface PageState {}
 		// interface Platform {}

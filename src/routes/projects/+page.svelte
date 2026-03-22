@@ -6,10 +6,6 @@
 	let { data }: { data: PageData } = $props();
 </script>
 
-<svelte:head>
-	<meta name="description" content="Project archive" />
-</svelte:head>
-
 <div class="flex flex-col gap-8">
 	{#if data.projects.length === 0}
 		<p class="text-sm text-muted-foreground">No projects yet.</p>
