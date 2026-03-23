@@ -1,6 +1,6 @@
 <script lang="ts">
-	import AboutMeSection from '$lib/components/AboutMeSection.svelte';
-	import TechStackSection from '$lib/components/TechStackSection.svelte';
+	import AboutMeSection from '$lib/components/about/AboutMeSection.svelte';
+	import TechStackSection from '$lib/components/about/TechStackSection.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();

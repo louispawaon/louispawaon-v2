@@ -1,5 +1,5 @@
 import { loadTechStack, type TechStackGroup } from '$lib/utils/tech-stack';
-import type { PageLoad } from './$types';
+import type { PageServerLoad } from './$types';
 
 export type AboutContent = {
 	fullName: string;
@@ -14,7 +14,7 @@ export type PageLoadData = {
 	techStack: TechStackGroup[];
 };
 
-export const load: PageLoad = async () => {
+export const load: PageServerLoad = async () => {
 	const mod = await import('$lib/content/site/about.json');
 	const about = (mod as unknown as { default: AboutContent }).default;
 	const techStack = loadTechStack();

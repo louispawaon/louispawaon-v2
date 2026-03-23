@@ -1,10 +1,10 @@
 <script lang="ts">
 	import './layout.css';
 	import Icon from '@iconify/svelte';
-	import SidebarShell from '$lib/components/SidebarShell.svelte';
+	import SidebarShell from '$lib/components/layout/SidebarShell.svelte';
 	import { page } from '$app/state';
 	import { afterNavigate, onNavigate } from '$app/navigation';
-	import { onMount, tick } from 'svelte';
+	import { tick } from 'svelte';
 	import { DEFAULT_LOCATION, getCurrentTime } from '$lib/utils';
 	import { flyUnlessReduced } from '$lib/utils/motion-transitions';
 	import type { LayoutData } from './$types';
@@ -47,14 +47,11 @@
 	let footerTime = $state('');
 	const footerLocation = DEFAULT_LOCATION;
 
-	onMount(() => {
-		const updateTime = () => {
+	$effect(() => {
+		footerTime = getCurrentTime();
+		const id = setInterval(() => {
 			footerTime = getCurrentTime();
-		};
-
-		updateTime();
-
-		const id = setInterval(updateTime, 60_000);
+		}, 60_000);
 		return () => clearInterval(id);
 	});
 

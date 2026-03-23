@@ -1,6 +1,6 @@
 import { loadExperiences, type ExperienceEntryFormatted } from '$lib/utils/experience';
 import { getFeaturedProjectsForHome, type ProjectEntry } from '$lib/utils/projects';
-import type { PageLoad } from './$types';
+import type { PageServerLoad } from './$types';
 
 export type HomepageContent = {
 	name: string;
@@ -20,7 +20,7 @@ export type PageLoadData = {
 	featuredProjects: ProjectEntry[];
 };
 
-export const load: PageLoad = async () => {
+export const load: PageServerLoad = async () => {
 	const mod = await import('$lib/content/site/homepage.json');
 	const homepage = (mod as unknown as { default: HomepageContent }).default;
 	const experiences = loadExperiences();

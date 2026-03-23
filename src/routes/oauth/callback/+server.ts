@@ -54,10 +54,11 @@ function postMessageResponse(message: string) {
 <script>
   (function () {
     function receiveMessage(e) {
+      if (e.origin !== window.location.origin) return;
       window.opener.postMessage(${JSON.stringify(message)}, e.origin);
     }
     window.addEventListener('message', receiveMessage, false);
-    window.opener.postMessage('authorizing:github', '*');
+    window.opener.postMessage('authorizing:github', window.location.origin);
   })();
 <\/script>
 </body>

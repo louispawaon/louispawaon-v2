@@ -1,5 +1,5 @@
 <script lang="ts">
-	import MainContent from '$lib/components/MainContent.svelte';
+	import MainContent from '$lib/components/home/MainContent.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();

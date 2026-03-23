@@ -1,15 +1,15 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
-	import ProjectImageCarousel from '$lib/components/ProjectImageCarousel.svelte';
+	import ProjectImageCarousel from '$lib/components/projects/ProjectImageCarousel.svelte';
 	import { Badge } from '$lib/components/ui/badge';
 	import { flyUnlessReduced } from '$lib/utils/motion-transitions';
-	import { rolesForHomepage } from '$lib/utils/projects';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
 
 	const project = $derived(data.project);
 	const carouselImages = $derived(data.carouselImages);
+	const displayRoles = $derived(data.displayRoles);
 
 	const demoHref = $derived((project.demoUrl ?? '').trim());
 	const repoHref = $derived((project.githubUrl ?? '').trim());
@@ -36,9 +36,9 @@
 		>
 			<div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
 				<h1 class="font-['DM_Sans'] text-2xl font-bold text-white">{project.title}</h1>
-				{#if rolesForHomepage(project).length}
-					<div class="flex flex-wrap gap-2 sm:justify-end">
-						{#each rolesForHomepage(project) as role (role)}
+			{#if displayRoles.length}
+				<div class="flex flex-wrap gap-2 sm:justify-end">
+					{#each displayRoles as role (role)}
 							<Badge
 								class="rounded-[6px] border-transparent bg-[#333333] px-2.5 py-0.5 font-['DM_Sans'] text-xs font-bold text-white"
 							>

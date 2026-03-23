@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
-import { getCarouselImages, getProjectBySlug } from '$lib/utils/projects';
-import type { PageLoad } from './$types';
+import { getCarouselImages, getProjectBySlug, rolesForHomepage } from '$lib/utils/projects';
+import type { PageServerLoad } from './$types';
 
 function ogDescription(text: string, max = 160): string {
 	const single = text.replace(/\s+/g, ' ').trim();
@@ -8,7 +8,7 @@ function ogDescription(text: string, max = 160): string {
 	return `${single.slice(0, max - 1).trimEnd()}…`;
 }
 
-export const load: PageLoad = ({ params }) => {
+export const load: PageServerLoad = ({ params }) => {
 	const project = getProjectBySlug(params.slug);
 	if (!project) {
 		error(404, 'Project not found');
@@ -16,6 +16,7 @@ export const load: PageLoad = ({ params }) => {
 
 	return {
 		project,
+		displayRoles: rolesForHomepage(project),
 		carouselImages: getCarouselImages(project),
 		meta: {
 			title: `${project.title} — Projects — Migs`,
