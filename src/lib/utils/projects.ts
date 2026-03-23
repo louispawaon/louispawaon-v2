@@ -60,6 +60,25 @@ function slugFromPath(path: string): string {
 	return base.replace(/\.md$/i, '');
 }
 
+/**
+ * Ensures images load from the site root (`static/` → served as `/...`).
+ * Relative paths like `media/projects/foo.png` resolve as `/projects/media/...` on
+ * `/projects/[slug]`; this normalizes them to `/media/projects/foo.png`.
+ */
+function normalizeProjectImageUrl(url: string): string {
+	const t = url.trim();
+	if (!t) return t;
+	if (/^https?:\/\//i.test(t) || t.startsWith('//')) return t;
+	if (t.startsWith('/')) return t;
+	// Repo-relative paths sometimes saved by CMS
+	if (t.startsWith('static/')) return `/${t.slice('static/'.length)}`;
+	// Public URL without leading slash (common from Decap/Sveltia)
+	if (t.startsWith('media/')) return `/${t}`;
+	// Strip leading ./ then root-absolute
+	const noDot = t.replace(/^\.\//, '');
+	return `/${noDot}`;
+}
+
 function trimFeaturedImage(v: unknown): string | undefined {
 	if (typeof v !== 'string') return undefined;
 	const t = v.trim();
@@ -73,6 +92,10 @@ function parseProjectModule(path: string, raw: string): ProjectEntry | null {
 	const title = (frontmatter.title as string) ?? '';
 	const date = (frontmatter.date as string) ?? '';
 
+	const rawFeatured = trimFeaturedImage(frontmatter.featuredImage);
+	const featuredImage = rawFeatured ? normalizeProjectImageUrl(rawFeatured) : undefined;
+	const gallery = normalizeGalleryField(frontmatter.gallery).map(normalizeProjectImageUrl);
+
 	return {
 		slug: slugFromPath(path),
 		title,
@@ -84,8 +107,8 @@ function parseProjectModule(path: string, raw: string): ProjectEntry | null {
 		demoUrl: frontmatter.demoUrl as string | undefined,
 		featured: Boolean(frontmatter.featured),
 		status: frontmatter.status as string | undefined,
-		featuredImage: trimFeaturedImage(frontmatter.featuredImage),
-		gallery: normalizeGalleryField(frontmatter.gallery),
+		featuredImage,
+		gallery,
 		problem: optionalText(frontmatter.problem),
 		approach: optionalText(frontmatter.approach),
 		engineeringDecisions: normalizeListField(frontmatter.engineeringDecisions, 'item'),
