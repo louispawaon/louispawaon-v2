@@ -57,7 +57,7 @@
 	const emailDisplay = $derived(connectEmailHref.replace(/^mailto:/i, ''));
 </script>
 
-<section id={sectionId} class="flex flex-col gap-[34px]">
+<section id={sectionId} class="flex flex-col gap-section-gap">
 	<div class="space-y-6">
 		<p class="text-lg leading-relaxed text-muted-foreground sm:text-xl lg:text-2xl">
 			{introParts.before}<span class="font-semibold text-primary">{name}</span>{introParts.after}
@@ -82,8 +82,8 @@
 							<Tooltip.TooltipContent
 								side="bottom"
 								sideOffset={8}
-								class="rounded-[6px] border border-transparent bg-[#333333] px-2.5 py-0.5 text-xs font-bold text-white"
-								arrowClasses="bg-[#333333] fill-[#333333]"
+								class="rounded-sm border border-transparent bg-surface-raised px-2.5 py-0.5 text-xs font-bold text-white"
+								arrowClasses="bg-surface-raised fill-surface-raised"
 							>
 								<a
 									href={connectEmailHref}
@@ -106,7 +106,7 @@
 
 	<a
 		href={ctaHref}
-		class="inline-flex items-center gap-1.5 text-sm font-light text-[#AAAAAA] italic transition-colors hover:text-primary sm:text-base"
+		class="inline-flex items-center gap-1.5 text-sm font-light text-subtle-foreground italic transition-colors hover:text-primary sm:text-base"
 	>
 		{ctaText}
 		<Icon icon="mdi:arrow-right" class="h-4 w-4" />

@@ -42,7 +42,7 @@
 		{connectEmailHref}
 	/>
 
-	<div class="mt-[135px]">
+	<div class="mt-section">
 		<RevealOnScroll>
 			<ExperienceSection
 				id="experience"
@@ -53,7 +53,7 @@
 		</RevealOnScroll>
 	</div>
 
-	<div class="mt-[135px]">
+	<div class="mt-section">
 		<RevealOnScroll>
 			<ProjectsSection
 				id="projects"

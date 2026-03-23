@@ -44,7 +44,7 @@
 				<div class="flex max-w-full flex-wrap justify-end gap-2">
 					{#each roles as role}
 						<Badge
-							class="rounded-[6px] border-transparent bg-[#333333] px-2.5 py-0.5 font-['DM_Sans'] text-xs font-bold text-white"
+							class="rounded-sm border-transparent bg-surface-raised px-2.5 py-0.5 font-['DM_Sans'] text-xs font-bold text-white"
 						>
 							{role}
 						</Badge>

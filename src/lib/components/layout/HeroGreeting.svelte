@@ -38,7 +38,7 @@
 		<span>here.</span>
 	</h1>
 
-	<p class="text-2xl font-medium text-[#EAEAEA] sm:text-3xl md:text-[36px]">
+	<p class="text-2xl font-medium text-muted-foreground sm:text-3xl md:text-[36px]">
 		{role}
 	</p>
 

@@ -119,10 +119,10 @@
 			{@render children()}
 
 			{#if page.url.pathname !== '/'}
-				<div class="mt-[135px] mb-8">
+				<div class="mt-section mb-8">
 					<a
 						href="/"
-						class="inline-flex items-center gap-1.5 text-sm font-light text-[#AAAAAA] italic transition-colors hover:text-primary"
+						class="inline-flex items-center gap-1.5 text-sm font-light text-subtle-foreground italic transition-colors hover:text-primary"
 					>
 						<Icon icon="mdi:arrow-left" class="h-4 w-4" />
 						Let's go back

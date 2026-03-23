@@ -14,7 +14,7 @@
 		description={data.about.description}
 	/>
 
-	<div class="mt-[135px]">
+	<div class="mt-section">
 		<TechStackSection intro={data.about.techStackIntro} groups={data.techStack} />
 	</div>
 </div>

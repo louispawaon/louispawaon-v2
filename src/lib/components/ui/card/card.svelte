@@ -7,7 +7,7 @@
 			variant: {
 				default: 'gap-6 rounded-xl border border-border bg-card py-6 shadow-sm',
 				project:
-					'gap-0 overflow-hidden rounded-3xl border border-[#444444] bg-transparent py-0 shadow-none'
+					'gap-0 overflow-hidden rounded-3xl border border-border-visible bg-transparent py-0 shadow-none'
 			}
 		},
 		defaultVariants: {

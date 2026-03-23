@@ -24,8 +24,8 @@
 </script>
 
 {#if projects.length}
-	<section id={sectionId} class="flex flex-col gap-[34px]">
-		<ul class="mx-auto flex w-full max-w-[840px] list-none flex-col gap-12 p-0 md:gap-14">
+	<section id={sectionId} class="flex flex-col gap-section-gap">
+		<ul class="mx-auto flex w-full max-w-content-max list-none flex-col gap-12 p-0 md:gap-14">
 			{#each projects as project (project.slug)}
 				<ProjectStackItem {project} />
 			{/each}
@@ -36,7 +36,7 @@
 				href={ctaLink}
 				target={ctaIsExternal ? '_blank' : undefined}
 				rel={ctaIsExternal ? 'noopener noreferrer' : undefined}
-				class="inline-flex items-center gap-1.5 text-sm font-light text-[#AAAAAA] italic transition-colors hover:text-primary sm:text-base"
+				class="inline-flex items-center gap-1.5 text-sm font-light text-subtle-foreground italic transition-colors hover:text-primary sm:text-base"
 			>
 				{ctaLabel}
 				<Icon icon="mdi:arrow-right" class="h-4 w-4" />
@@ -47,7 +47,7 @@
 			href={projectsArchiveHref}
 			target="_blank"
 			rel="noopener noreferrer"
-			class="inline-flex items-center gap-1.5 text-sm font-light text-[#AAAAAA] italic transition-colors hover:text-primary sm:text-base"
+			class="inline-flex items-center gap-1.5 text-sm font-light text-subtle-foreground italic transition-colors hover:text-primary sm:text-base"
 		>
 			View my projects archive
 			<Icon icon="mdi:arrow-right" class="h-4 w-4" />

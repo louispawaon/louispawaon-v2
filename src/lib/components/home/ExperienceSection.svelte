@@ -17,8 +17,8 @@
 </script>
 
 {#if experiences.length}
-	<section id={sectionId} class="flex flex-col gap-[34px]">
-		<div class="border-l-2 border-l-[#1C3A5A]">
+	<section id={sectionId} class="flex flex-col gap-section-gap">
+		<div class="border-l-2 border-l-timeline-accent">
 			<div class="flex flex-col gap-[32px]">
 				{#each experiences as experience}
 					<ExperienceCard {experience} />
@@ -30,7 +30,7 @@
 			href={ctaHref}
 			target="_blank"
 			rel="noopener noreferrer"
-			class="inline-flex items-center gap-1.5 text-sm font-light text-[#AAAAAA] italic transition-colors hover:text-primary sm:text-base"
+			class="inline-flex items-center gap-1.5 text-sm font-light text-subtle-foreground italic transition-colors hover:text-primary sm:text-base"
 		>
 			{ctaText}
 			<Icon icon="mdi:arrow-right" class="h-4 w-4" />

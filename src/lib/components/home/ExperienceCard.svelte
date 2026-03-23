@@ -16,11 +16,11 @@
 	></div>
 
 	<div class="space-y-2">
-		<p class="text-xs text-[#AAAAAA] sm:text-[12px]">{experience.datePeriod}</p>
+		<p class="text-xs text-subtle-foreground sm:text-[12px]">{experience.datePeriod}</p>
 
 		<div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
 			<h3 class="text-xl font-bold sm:text-[22px] lg:text-2xl">{experience.position}</h3>
-			<span class="text-lg font-light text-[#AAAAAA] italic sm:text-[18px] lg:text-xl">
+			<span class="text-lg font-light text-subtle-foreground italic sm:text-[18px] lg:text-xl">
 				{experience.company}
 			</span>
 		</div>
@@ -31,7 +31,7 @@
 			<div class="flex flex-wrap gap-2 pt-1">
 				{#each experience.technologies as tech}
 					<Badge
-						class="rounded-[6px] border-transparent bg-[#2C99FF] px-2.5 py-0.5 font-['DM_Sans'] text-xs font-bold text-white"
+						class="rounded-sm border-transparent bg-badge-tech px-2.5 py-0.5 font-['DM_Sans'] text-xs font-bold text-white"
 					>
 						{tech}
 					</Badge>

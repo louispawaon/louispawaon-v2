@@ -51,7 +51,7 @@
 	const paragraphs = $derived(description.split('\n').filter((p) => p.trim().length > 0));
 </script>
 
-<section class="flex flex-col gap-[34px]">
+<section class="flex flex-col gap-section-gap">
 	<div class="space-y-6">
 		<p class="text-lg leading-relaxed text-muted-foreground sm:text-xl lg:text-2xl">
 			{#each introSegments as segment}

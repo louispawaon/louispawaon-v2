@@ -95,7 +95,7 @@
 		<div class="pointer-events-none absolute inset-y-0 left-0 z-10 flex w-12 items-center justify-start pl-0 sm:w-14">
 			<button
 				type="button"
-				class="pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full border border-[#444444] bg-background/90 text-foreground shadow-sm backdrop-blur-sm transition-colors hover:border-primary hover:text-primary disabled:pointer-events-none disabled:opacity-30"
+				class="pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full border border-border-visible bg-background/90 text-foreground shadow-sm backdrop-blur-sm transition-colors hover:border-primary hover:text-primary disabled:pointer-events-none disabled:opacity-30"
 				aria-label="Previous image"
 				disabled={atStart}
 				onclick={() => goPrev()}
@@ -106,7 +106,7 @@
 		<div class="pointer-events-none absolute inset-y-0 right-0 z-10 flex w-12 items-center justify-end pr-0 sm:w-14">
 			<button
 				type="button"
-				class="pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full border border-[#444444] bg-background/90 text-foreground shadow-sm backdrop-blur-sm transition-colors hover:border-primary hover:text-primary disabled:pointer-events-none disabled:opacity-30"
+				class="pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full border border-border-visible bg-background/90 text-foreground shadow-sm backdrop-blur-sm transition-colors hover:border-primary hover:text-primary disabled:pointer-events-none disabled:opacity-30"
 				aria-label="Next image"
 				disabled={atEnd}
 				onclick={() => goNext()}
@@ -174,7 +174,7 @@
 					type="button"
 					class="h-2 rounded-full transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring {activeIndex === i
 						? 'w-8 bg-primary'
-						: 'w-2 bg-[#444444] hover:bg-[#555555]'}"
+						: 'w-2 bg-border-visible hover:bg-muted-foreground'}"
 					aria-label="Go to image {i + 1}"
 					aria-current={activeIndex === i ? 'true' : undefined}
 					onclick={() => goTo(i)}
@@ -184,7 +184,7 @@
 	{/if}
 
 	{#if showControls}
-		<p class="mt-2 text-center text-xs font-light text-[#AAAAAA]">
+		<p class="mt-2 text-center text-xs font-light text-subtle-foreground">
 			Arrows, dots, or swipe — keyboard ← → when focused
 		</p>
 	{/if}
