@@ -114,6 +114,8 @@ collections:
     folder: src/lib/content/projects
     create: true
     slug: "{{slug}}"
+    media_folder: static/media/projects/{{slug}}
+    public_folder: /media/projects/{{slug}}
     sortable_fields:
       - commit_date
       - commit_author
