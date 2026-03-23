@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
-	import ExperienceCard from '$lib/components/ExperienceCard.svelte';
+	import ExperienceCard from '$lib/components/home/ExperienceCard.svelte';
 	import type { ExperienceEntryFormatted } from '$lib/utils/experience';
 
 	let {

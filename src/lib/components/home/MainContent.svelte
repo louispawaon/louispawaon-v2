@@ -1,11 +1,22 @@
 <script lang="ts">
-	import IntroSection from '$lib/components/IntroSection.svelte';
-	import ExperienceSection from '$lib/components/ExperienceSection.svelte';
-	import ProjectsSection from '$lib/components/ProjectsSection.svelte';
-	import RevealOnScroll from '$lib/components/RevealOnScroll.svelte';
-	import type { HomepageContent } from '../../routes/+page';
+	import IntroSection from '$lib/components/home/IntroSection.svelte';
+	import ExperienceSection from '$lib/components/home/ExperienceSection.svelte';
+	import ProjectsSection from '$lib/components/home/ProjectsSection.svelte';
+	import RevealOnScroll from '$lib/components/shared/RevealOnScroll.svelte';
 	import type { ExperienceEntryFormatted } from '$lib/utils/experience';
 	import type { ProjectEntry } from '$lib/utils/projects';
+
+	export type HomepageContent = {
+		name: string;
+		introLine: string;
+		description: string;
+		ctaText: string;
+		ctaHref: string;
+		experienceCtaText: string;
+		experienceCtaHref: string;
+		projectsCtaText?: string;
+		projectsCtaHref?: string;
+	};
 
 	let {
 		homepage,

@@ -2,7 +2,7 @@
 	let {
 		currentTime,
 		location,
-		prefix = 'It’s currently',
+		prefix = "It\u2019s currently",
 		connector = 'here in',
 		class: className = ''
 	}: {
@@ -13,11 +13,6 @@
 		class?: string;
 	} = $props();
 
-	$effect(() => {
-		// no-op; ensures currentTime/location are tracked reactively
-		currentTime;
-		location;
-	});
 </script>
 
 {#if currentTime || location}

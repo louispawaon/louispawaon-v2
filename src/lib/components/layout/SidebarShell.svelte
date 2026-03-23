@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { flyUnlessReduced } from '$lib/utils/motion-transitions';
-	import SidebarFooterMeta from '$lib/components/SidebarFooterMeta.svelte';
-	import HeroActions from '$lib/components/HeroActions.svelte';
-	import HeroGreeting from '$lib/components/HeroGreeting.svelte';
-	import SocialLinksRow from '$lib/components/SocialLinksRow.svelte';
+	import SidebarFooterMeta from '$lib/components/layout/SidebarFooterMeta.svelte';
+	import HeroActions from '$lib/components/layout/HeroActions.svelte';
+	import HeroGreeting from '$lib/components/layout/HeroGreeting.svelte';
+	import SocialLinksRow from '$lib/components/layout/SocialLinksRow.svelte';
 
 	type SidebarLink = {
 		label: string;

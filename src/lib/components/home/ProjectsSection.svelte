@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
-	import ProjectStackItem from '$lib/components/ProjectStackItem.svelte';
+	import ProjectStackItem from '$lib/components/projects/ProjectStackItem.svelte';
 	import type { ProjectEntry } from '$lib/utils/projects';
 
 	let {
