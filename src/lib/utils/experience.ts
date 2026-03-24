@@ -1,6 +1,6 @@
 import { parse as parseYaml } from 'yaml';
 
-export type ExperienceDateDisplay = 'full' | 'year';
+export type ExperienceDateDisplay = 'full' | 'year' | 'hidden';
 
 export type ExperienceEntry = {
 	company: string;
@@ -28,6 +28,20 @@ function parseFrontmatter(raw: string): Record<string, unknown> | null {
 	return parseYaml(match[1]) as Record<string, unknown>;
 }
 
+/**
+ * Missing key (`undefined`) = older entries → show full dates.
+ * `null` / empty string = Decap cleared the select (“None”) → hide dates.
+ */
+function normalizeDateDisplay(raw: unknown): ExperienceDateDisplay {
+	if (raw === undefined) return 'full';
+	if (raw === null || raw === '') return 'hidden';
+	const s = String(raw).toLowerCase();
+	if (s === 'year') return 'year';
+	if (s === 'hidden' || s === 'none') return 'hidden';
+	if (s === 'full') return 'full';
+	return 'full';
+}
+
 function yearFromISODate(dateStr: string): string {
 	const m = dateStr.match(/^(\d{4})/);
 	if (m) return m[1];
@@ -46,7 +60,7 @@ function formatDateToken(dateStr: string, mode: ExperienceDateDisplay): string {
 }
 
 function formatDatePeriod(entry: ExperienceEntry): string {
-	if (entry.hideDate) return '';
+	if (entry.hideDate || entry.dateDisplay === 'hidden') return '';
 	const mode: ExperienceDateDisplay = entry.dateDisplay === 'year' ? 'year' : 'full';
 	const start = formatDateToken(entry.startDate, mode);
 	if (entry.current) return `${start} - Present`;
@@ -67,9 +81,8 @@ export function loadExperiences(): ExperienceEntryFormatted[] {
 		const frontmatter = parseFrontmatter(mod.default);
 		if (!frontmatter) continue;
 
-		const dateDisplayRaw = frontmatter.dateDisplay as string | undefined;
-		const dateDisplay: ExperienceDateDisplay | undefined =
-			dateDisplayRaw === 'year' ? 'year' : dateDisplayRaw === 'full' ? 'full' : undefined;
+		const dateDisplayRaw = frontmatter.dateDisplay;
+		const dateDisplay = normalizeDateDisplay(dateDisplayRaw);
 
 		const entry: ExperienceEntry = {
 			company: (frontmatter.company as string) ?? '',
