@@ -16,7 +16,9 @@
 	></div>
 
 	<div class="space-y-2">
-		<p class="text-xs text-subtle-foreground sm:text-[12px]">{experience.datePeriod}</p>
+		{#if experience.datePeriod}
+			<p class="text-xs text-subtle-foreground sm:text-[12px]">{experience.datePeriod}</p>
+		{/if}
 
 		<div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
 			<h3 class="text-xl font-bold sm:text-[22px] lg:text-2xl">{experience.position}</h3>

@@ -1,5 +1,7 @@
 import { parse as parseYaml } from 'yaml';
 
+export type ExperienceDateDisplay = 'full' | 'year';
+
 export type ExperienceEntry = {
 	company: string;
 	position: string;
@@ -7,6 +9,10 @@ export type ExperienceEntry = {
 	startDate: string;
 	endDate?: string;
 	current?: boolean;
+	/** When true, no date line is shown (start/end still used for ordering). */
+	hideDate?: boolean;
+	/** `full`: "April 2023"; `year`: "2023" (from ISO start/end dates). */
+	dateDisplay?: ExperienceDateDisplay;
 	description: string;
 	technologies: string[];
 	achievements?: string[];
@@ -22,16 +28,30 @@ function parseFrontmatter(raw: string): Record<string, unknown> | null {
 	return parseYaml(match[1]) as Record<string, unknown>;
 }
 
+function yearFromISODate(dateStr: string): string {
+	const m = dateStr.match(/^(\d{4})/);
+	if (m) return m[1];
+	const d = new Date(dateStr);
+	return Number.isNaN(d.getTime()) ? '' : String(d.getUTCFullYear());
+}
+
 function formatMonthYear(dateStr: string): string {
 	const date = new Date(dateStr);
+	if (Number.isNaN(date.getTime())) return yearFromISODate(dateStr);
 	return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 }
 
+function formatDateToken(dateStr: string, mode: ExperienceDateDisplay): string {
+	return mode === 'year' ? yearFromISODate(dateStr) : formatMonthYear(dateStr);
+}
+
 function formatDatePeriod(entry: ExperienceEntry): string {
-	const start = formatMonthYear(entry.startDate);
+	if (entry.hideDate) return '';
+	const mode: ExperienceDateDisplay = entry.dateDisplay === 'year' ? 'year' : 'full';
+	const start = formatDateToken(entry.startDate, mode);
 	if (entry.current) return `${start} - Present`;
 	if (!entry.endDate) return start;
-	return `${start} - ${formatMonthYear(entry.endDate)}`;
+	return `${start} - ${formatDateToken(entry.endDate, mode)}`;
 }
 
 export function loadExperiences(): ExperienceEntryFormatted[] {
@@ -47,6 +67,10 @@ export function loadExperiences(): ExperienceEntryFormatted[] {
 		const frontmatter = parseFrontmatter(mod.default);
 		if (!frontmatter) continue;
 
+		const dateDisplayRaw = frontmatter.dateDisplay as string | undefined;
+		const dateDisplay: ExperienceDateDisplay | undefined =
+			dateDisplayRaw === 'year' ? 'year' : dateDisplayRaw === 'full' ? 'full' : undefined;
+
 		const entry: ExperienceEntry = {
 			company: (frontmatter.company as string) ?? '',
 			position: (frontmatter.position as string) ?? '',
@@ -54,6 +78,8 @@ export function loadExperiences(): ExperienceEntryFormatted[] {
 			startDate: (frontmatter.startDate as string) ?? '',
 			endDate: frontmatter.endDate as string | undefined,
 			current: frontmatter.current as boolean | undefined,
+			hideDate: frontmatter.hideDate as boolean | undefined,
+			dateDisplay,
 			description: (frontmatter.description as string) ?? '',
 			technologies: (frontmatter.technologies as string[]) ?? [],
 			achievements: frontmatter.achievements as string[] | undefined

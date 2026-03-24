@@ -88,9 +88,18 @@ collections:
       - { label: Company, name: company, widget: string, required: true }
       - { label: Position, name: position, widget: string, required: true }
       - { label: Location, name: location, widget: string, required: false }
-      - { label: Start Date, name: startDate, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, required: true }
+      - { label: Start Date, name: startDate, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, required: true, hint: "Used for sort order. For year-only display, pick any day in that year (e.g. Jan 1)." }
       - { label: End Date, name: endDate, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, required: false }
       - { label: Current Position, name: current, widget: boolean, default: false, required: false }
+      - label: Date display
+        name: dateDisplay
+        widget: select
+        default: full
+        required: false
+        options:
+          - { label: "Month and year (e.g. April 2023 – June 2023)", value: full }
+          - { label: "Year only (e.g. 2023 – 2024)", value: year }
+      - { label: Hide dates on site, name: hideDate, widget: boolean, default: false, required: false, hint: "Hides the date line; start/end dates still control ordering." }
       - { label: Description, name: description, widget: markdown, required: true }
       - { label: Technologies, name: technologies, widget: list, required: false, field: { label: Technology, name: technology, widget: string } }
       - { label: Achievements, name: achievements, widget: list, required: false, field: { label: Achievement, name: achievement, widget: string } }
