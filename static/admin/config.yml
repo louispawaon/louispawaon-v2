@@ -95,13 +95,11 @@ collections:
         name: dateDisplay
         widget: select
         default: full
-        required: true
-        hint: "Hidden removes the date line. Start/end dates are still required for sort order—use any day in each year if you only care about year."
+        required: false
         options:
           - { label: "Month and year (e.g. April 2023 – June 2023)", value: full }
           - { label: "Year only (e.g. 2023 – 2024)", value: year }
-          - { label: "Hidden (no date line)", value: hidden }
-      - { label: Hide dates on site, name: hideDate, widget: boolean, default: false, required: false, hint: "Alternative to Hidden above; either one hides the date line." }
+      - { label: Hide dates on site, name: hideDate, widget: boolean, default: false, required: false, hint: "Hides the date line; start/end dates still control ordering." }
       - { label: Description, name: description, widget: markdown, required: true }
       - { label: Technologies, name: technologies, widget: list, required: false, field: { label: Technology, name: technology, widget: string } }
       - { label: Achievements, name: achievements, widget: list, required: false, field: { label: Achievement, name: achievement, widget: string } }
