@@ -1,15 +1,34 @@
 {
-	"sidebarLinks": [
-		{
-			"label": "download resume",
-			"href": "https://drive.google.com/uc?export=download&id=1Is5Wtdn5zyJAdm_UL-KCdriQAG02Z8Fk"
-		},
-		{ "label": "get to know migs", "href": "/about" }
-	],
-	"socialLinks": [
-		{ "kind": "linkedin", "href": "https://www.linkedin.com/in/louispawaon/", "label": "LinkedIn" },
-		{ "kind": "github", "href": "https://github.com/louispawaon/", "label": "GitHub" },
-		{ "kind": "twitter", "href": "https://twitter.com/miggy_pawaon", "label": "Twitter" },
-		{ "kind": "email", "href": "mailto:lpawaon@gmail.com", "label": "Email" }
-	]
+  "sidebarLinks": [
+    {
+      "label": "download resume",
+      "href": "https://drive.google.com/uc?export=download&id=1RfkTq-THEZyOOCivTCz0QrWytBwtN-Pt"
+    },
+    {
+      "label": "get to know migs",
+      "href": "/about"
+    }
+  ],
+  "socialLinks": [
+    {
+      "kind": "linkedin",
+      "href": "https://www.linkedin.com/in/louispawaon/",
+      "label": "LinkedIn"
+    },
+    {
+      "kind": "github",
+      "href": "https://github.com/louispawaon/",
+      "label": "GitHub"
+    },
+    {
+      "kind": "twitter",
+      "href": "https://twitter.com/miggy_pawaon",
+      "label": "Twitter"
+    },
+    {
+      "kind": "email",
+      "href": "mailto:lpawaon@gmail.com",
+      "label": "Email"
+    }
+  ]
 }
