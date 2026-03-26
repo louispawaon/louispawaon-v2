@@ -13,5 +13,10 @@ technologies:
   - SvelteKit
   - DrizzleORM
   - Golang
-achievements: []
+achievements: [
+  "Built a reusable component library in Svelte and TypeScript for their product redesign, establishing a shared design language across the product.",
+  "Collaborate directly with design, product teams and the CTO to ship UI/UX improvements from mockup to production.",
+  "Contributed to the Go backend - overhauled survey analytics endpoints and resolved a cross-user image loading bug affecting multiple accounts.",
+  "Integrated dynamic backend data into frontend components, handling edge cases around loading, error and empty states.",
+  ]
 ---
