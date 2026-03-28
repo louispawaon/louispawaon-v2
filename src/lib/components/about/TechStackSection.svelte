@@ -12,14 +12,14 @@
 </script>
 
 <section class="flex flex-col gap-12">
-	<p class="text-base font-light italic text-subtle-foreground">
+	<p class="text-base font-light italic text-subtle-foreground sm:text-lg">
 		{intro}
 	</p>
 
 	<div class="flex flex-col gap-10">
 		{#each groups as group}
 			<div>
-				<h3 class="text-2xl font-bold">{group.category}</h3>
+				<h3 class="text-xl font-bold sm:text-2xl">{group.category}</h3>
 
 				<div class="mt-6 grid grid-cols-[repeat(auto-fill,minmax(4.5rem,1fr))] gap-8">
 					{#each group.items as item}

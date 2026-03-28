@@ -17,15 +17,15 @@
 
 	<div class="space-y-2">
 		{#if experience.datePeriod}
-			<p class="text-xs text-subtle-foreground sm:text-[12px]">{experience.datePeriod}</p>
+			<p class="text-xs text-subtle-foreground">{experience.datePeriod}</p>
 		{/if}
 
-		<div class="flex w-full flex-wrap items-baseline justify-between gap-x-4 gap-y-2 pr-0.5">
-			<h3 class="min-w-0 flex-1 text-xl font-bold sm:text-[22px] lg:text-2xl">
+		<div class="flex w-full flex-col gap-y-0.5 pr-0.5 xl:flex-row xl:flex-wrap xl:items-baseline xl:justify-between xl:gap-x-4 xl:gap-y-2">
+			<h3 class="min-w-0 text-xl font-bold sm:text-[22px] lg:text-2xl xl:flex-1">
 				{experience.position}
 			</h3>
 			<span
-				class="shrink-0 text-lg font-light text-subtle-foreground italic sm:text-[18px] lg:text-xl"
+				class="shrink-0 text-base font-light text-subtle-foreground italic sm:text-lg lg:text-xl"
 			>
 				{experience.company}
 			</span>

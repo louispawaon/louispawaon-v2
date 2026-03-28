@@ -19,7 +19,7 @@
 			<Card variant="project" class="w-[840px] max-w-full transition-opacity group-hover:opacity-90">
 				<CardContent class="px-0">
 					<div
-						class="relative h-[455px] w-full min-w-0 overflow-hidden bg-background/30 max-md:h-[min(455px,58vw)]"
+						class="relative aspect-video w-full min-w-0 overflow-hidden bg-background/30"
 					>
 						{#if project.featuredImage}
 							<img

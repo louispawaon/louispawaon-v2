@@ -35,7 +35,7 @@
 			class="flex flex-col"
 		>
 			<div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
-				<h1 class="font-['DM_Sans'] text-2xl font-bold text-white">{project.title}</h1>
+				<h1 class="font-['DM_Sans'] text-2xl font-bold text-white sm:text-3xl">{project.title}</h1>
 			{#if displayRoles.length}
 				<div class="flex flex-wrap gap-2 sm:justify-end">
 					{#each displayRoles as role (role)}
@@ -56,10 +56,10 @@
 		>
 			{#if project.problem}
 				<section class="flex flex-col gap-8">
-					<h2 class="font-['DM_Sans'] text-2xl font-bold text-white">The Problem</h2>
-					<p
-						class="font-['Epilogue'] text-lg leading-relaxed whitespace-pre-line text-muted-foreground"
-					>
+				<h2 class="font-['DM_Sans'] text-2xl font-bold text-white sm:text-3xl">The Problem</h2>
+				<p
+					class="font-['Epilogue'] text-lg leading-relaxed whitespace-pre-line text-muted-foreground sm:text-xl"
+				>
 						{project.problem}
 					</p>
 				</section>
@@ -67,10 +67,10 @@
 
 			{#if project.approach}
 				<section class="flex flex-col gap-8">
-					<h2 class="font-['DM_Sans'] text-2xl font-bold text-white">The Approach</h2>
-					<p
-						class="font-['Epilogue'] text-lg leading-relaxed whitespace-pre-line text-muted-foreground"
-					>
+				<h2 class="font-['DM_Sans'] text-2xl font-bold text-white sm:text-3xl">The Approach</h2>
+				<p
+					class="font-['Epilogue'] text-lg leading-relaxed whitespace-pre-line text-muted-foreground sm:text-xl"
+				>
 						{project.approach}
 					</p>
 				</section>
@@ -78,10 +78,10 @@
 
 			{#if hasItems(project.engineeringDecisions)}
 				<section class="flex flex-col gap-8">
-					<h2 class="font-['DM_Sans'] text-2xl font-bold text-white">Engineering Decisions</h2>
-					<ul
-						class="list-disc space-y-2 pl-5 font-['Epilogue'] text-lg leading-relaxed text-muted-foreground"
-					>
+				<h2 class="font-['DM_Sans'] text-2xl font-bold text-white sm:text-3xl">Engineering Decisions</h2>
+				<ul
+					class="list-disc space-y-2 pl-5 font-['Epilogue'] text-lg leading-relaxed text-muted-foreground sm:text-xl"
+				>
 						{#each project.engineeringDecisions as item, i (i)}
 							<li>{item}</li>
 						{/each}
@@ -91,10 +91,10 @@
 
 			{#if hasItems(project.architecture)}
 				<section class="flex flex-col gap-8">
-					<h2 class="font-['DM_Sans'] text-2xl font-bold text-white">Architecture</h2>
-					<ul
-						class="list-disc space-y-2 pl-5 font-['Epilogue'] text-lg leading-relaxed text-muted-foreground"
-					>
+				<h2 class="font-['DM_Sans'] text-2xl font-bold text-white sm:text-3xl">Architecture</h2>
+				<ul
+					class="list-disc space-y-2 pl-5 font-['Epilogue'] text-lg leading-relaxed text-muted-foreground sm:text-xl"
+				>
 						{#each project.architecture as item, i (i)}
 							<li>{item}</li>
 						{/each}
@@ -104,10 +104,10 @@
 
 			{#if hasItems(project.outcome)}
 				<section class="flex flex-col gap-8">
-					<h2 class="font-['DM_Sans'] text-2xl font-bold text-white">Outcome</h2>
-					<ul
-						class="list-disc space-y-2 pl-5 font-['Epilogue'] text-lg leading-relaxed text-muted-foreground"
-					>
+				<h2 class="font-['DM_Sans'] text-2xl font-bold text-white sm:text-3xl">Outcome</h2>
+				<ul
+					class="list-disc space-y-2 pl-5 font-['Epilogue'] text-lg leading-relaxed text-muted-foreground sm:text-xl"
+				>
 						{#each project.outcome as item, i (i)}
 							<li>{item}</li>
 						{/each}
@@ -117,26 +117,26 @@
 
 			{#if hasProjectLinks}
 				<section class="flex flex-col gap-8">
-					<h2 class="font-['DM_Sans'] text-2xl font-bold text-white">Links</h2>
-					<div class="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:gap-x-10 sm:gap-y-4">
-						{#if demoHref}
-							<a
-								href={demoHref}
-								target="_blank"
-								rel="noopener noreferrer"
-								class="inline-flex items-center gap-1.5 font-['Epilogue'] text-lg text-muted-foreground underline-offset-4 transition-colors hover:text-primary hover:underline"
-							>
-								View live project
-								<Icon icon="mdi:open-in-new" class="h-5 w-5 shrink-0 opacity-80" aria-hidden="true" />
-							</a>
-						{/if}
-						{#if repoHref}
-							<a
-								href={repoHref}
-								target="_blank"
-								rel="noopener noreferrer"
-								class="inline-flex items-center gap-1.5 font-['Epilogue'] text-lg text-muted-foreground underline-offset-4 transition-colors hover:text-primary hover:underline"
-							>
+				<h2 class="font-['DM_Sans'] text-2xl font-bold text-white sm:text-3xl">Links</h2>
+				<div class="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:gap-x-10 sm:gap-y-4">
+					{#if demoHref}
+						<a
+							href={demoHref}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="inline-flex items-center gap-1.5 font-['Epilogue'] text-lg text-muted-foreground underline-offset-4 transition-colors hover:text-primary hover:underline sm:text-xl"
+						>
+							View live project
+							<Icon icon="mdi:open-in-new" class="h-5 w-5 shrink-0 opacity-80" aria-hidden="true" />
+						</a>
+					{/if}
+					{#if repoHref}
+						<a
+							href={repoHref}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="inline-flex items-center gap-1.5 font-['Epilogue'] text-lg text-muted-foreground underline-offset-4 transition-colors hover:text-primary hover:underline sm:text-xl"
+						>
 								View repository
 								<Icon icon="mdi:open-in-new" class="h-5 w-5 shrink-0 opacity-80" aria-hidden="true" />
 							</a>

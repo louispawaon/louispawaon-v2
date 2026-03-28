@@ -13,7 +13,7 @@
 
 {#if actions.length}
 	<nav
-		class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-primary sm:text-sm md:flex-col md:items-end md:gap-[10px] md:text-[20px]"
+		class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-primary md:flex-col md:items-end md:gap-[10px] md:text-base lg:text-[20px]"
 	>
 		{#each actions as action}
 			<a href={action.href} class="underline-offset-4 hover:underline">

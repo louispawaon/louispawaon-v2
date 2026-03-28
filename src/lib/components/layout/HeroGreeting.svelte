@@ -14,7 +14,7 @@
 
 <section class="space-y-4 sm:space-y-6">
 	<h1
-		class="flex flex-wrap items-center gap-x-2 gap-y-1 text-4xl leading-[1.05] font-semibold sm:gap-x-3 sm:gap-y-2 sm:text-5xl md:text-6xl lg:text-8xl"
+		class="flex flex-wrap items-center gap-x-2 gap-y-1 text-4xl leading-[1.05] font-semibold sm:gap-x-3 sm:gap-y-2 md:text-5xl lg:text-8xl"
 	>
 		<span> hi </span>
 		<span
@@ -32,17 +32,17 @@
 			<img
 				src="/migs-font.svg"
 				alt={title}
-				class="h-[64px] w-auto max-w-[170px] object-contain sm:h-[80px] sm:max-w-[210px] md:h-[96px] md:max-w-[250px] lg:h-[120px] lg:max-w-[320px]"
+				class="h-[64px] w-auto max-w-[170px] object-contain sm:h-[64px] sm:max-w-[170px] md:h-[80px] md:max-w-[210px] lg:h-[120px] lg:max-w-[320px]"
 			/>
 		</a>
 		<span>here.</span>
 	</h1>
 
-	<p class="text-2xl font-medium text-muted-foreground sm:text-3xl md:text-[36px]">
+	<p class="text-2xl font-medium text-muted-foreground md:text-3xl lg:text-[36px]">
 		{role}
 	</p>
 
-	<p class="text-lg font-light text-muted-foreground italic sm:text-xl md:text-[30px]">
+	<p class="text-lg font-light text-muted-foreground italic md:text-xl lg:text-[30px]">
 		{tagline}
 	</p>
 </section>

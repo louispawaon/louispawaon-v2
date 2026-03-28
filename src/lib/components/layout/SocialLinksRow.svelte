@@ -36,8 +36,8 @@
 					target={link.kind === 'email' ? undefined : '_blank'}
 					rel={link.kind === 'email' ? undefined : 'noreferrer'}
 				>
-					<Icon icon={`mdi:${mdiName}`} class="h-5 w-5 sm:hidden" />
-					<Icon icon={`mdi:${mdiName}`} class="hidden h-12 w-12 sm:block" />
+			<Icon icon={`mdi:${mdiName}`} class="h-5 w-5 sm:hidden" />
+				<Icon icon={`mdi:${mdiName}`} class="hidden h-7 w-7 sm:block" />
 				</a>
 			{/if}
 		{/each}
