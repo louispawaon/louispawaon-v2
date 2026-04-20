@@ -1,5 +1,5 @@
 ---
-title: ReFresh Reusable Components
+title: ReFresh Component Library
 description: ''
 lede: ''
 projectType: company
