@@ -32,8 +32,8 @@ technologies:
   - Dexie.js
   - TanStack Start
 roles: []
-githubUrl: ''
-demoUrl: ''
+githubUrl: https://github.com/louispawaon/tigf-v2
+demoUrl: https://develop-tigf.louispawaon.workers.dev/
 featured: true
 status: Completed
 ifLive: true
