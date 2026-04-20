@@ -3,7 +3,7 @@ title: SnapShift
 description: A lightweight tool for converting HEIC images into more accessible formats like JPG and PNG, with support for bulk processing to streamline workflows involving Apple device images.
 lede: Turn folders of Apple HEICs into shareable JPGs and PNGs without babysitting each file.
 projectType: personal
-featuredImage: /media/projects/snapshift/SnapShift_Head.png
+featuredImage: /media/projects/snapshift/snapshift-land.png
 gallery:
   - /media/projects/snapshift/SnapShift_prev.png
 problem:
