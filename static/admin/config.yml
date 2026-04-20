@@ -82,8 +82,6 @@ collections:
       - commit_date
       - commit_author
       - title
-    default_sort_field: commit_date
-    default_sort_direction: descending
     fields:
       - { label: Company, name: company, widget: string, required: true }
       - { label: Position, name: position, widget: string, required: true }
@@ -130,12 +128,18 @@ collections:
       - commit_author
       - title
       - date
-    default_sort_field: date
-    default_sort_direction: descending
     fields:
       - { label: Title, name: title, widget: string, required: true }
-      - { label: Description, name: description, widget: text, required: true }
-      - { label: Long Description, name: body, widget: markdown, required: false }
+      - { label: Description, name: description, widget: text, required: false, hint: "SEO / fallback summary" }
+      - { label: Lede, name: lede, widget: text, required: false, hint: "Short pull quote summarizing the project" }
+      - label: Project type
+        name: projectType
+        widget: select
+        required: false
+        options: [assessment, personal, company, org]
+      - { label: Company / client name, name: clientName, widget: string, required: false }
+      - { label: Preview — problem (homepage), name: previewProblem, widget: string, required: false }
+      - { label: Preview — outcome (homepage), name: previewOutcome, widget: string, required: false }
       - { label: Featured Image, name: featuredImage, widget: image, required: false }
       - label: Gallery
         name: gallery
@@ -143,18 +147,31 @@ collections:
         required: false
         hint: "Additional screenshots; shown after featured image in the project carousel"
         field: { label: Image, name: image, widget: image }
-      - { label: The Problem, name: problem, widget: text, required: false }
-      - { label: The Approach, name: approach, widget: text, required: false }
-      - label: Engineering Decisions
-        name: engineeringDecisions
-        widget: list
+      - label: Problem
+        name: problem
+        widget: object
         required: false
-        field: { label: Item, name: item, widget: string }
-      - label: Architecture
-        name: architecture
-        widget: list
+        collapsed: true
+        fields:
+          - { label: Context (lead line), name: context, widget: string, required: false }
+          - { label: Sub-context (following copy), name: subcontext, widget: text, required: false }
+      - label: Approach
+        name: approach
+        widget: object
         required: false
-        field: { label: Item, name: item, widget: string }
+        collapsed: true
+        fields:
+          - { label: Context (lead line), name: context, widget: string, required: false }
+          - { label: Sub-context (following copy), name: subcontext, widget: text, required: false }
+      - label: Technical decisions
+        name: technicalDecisions
+        widget: object
+        required: false
+        collapsed: true
+        hint: "Replaces separate engineering decisions and architecture lists"
+        fields:
+          - { label: Context (lead line), name: context, widget: string, required: false }
+          - { label: Sub-context (following copy), name: subcontext, widget: text, required: false }
       - label: Outcome
         name: outcome
         widget: list
@@ -172,3 +189,7 @@ collections:
       - { label: Live Demo URL, name: demoUrl, widget: string, required: false }
       - { label: Featured, name: featured, widget: boolean, default: false, required: false }
       - { label: Status, name: status, widget: select, options: ["Planning", "In Progress", "Completed", "Maintenance"], default: "Completed", required: false }
+      - { label: Highlight status as live, name: ifLive, widget: boolean, default: false, required: false, hint: "Uses blue accent on the status pill on the project page" }
+      - { label: Under NDA (private on projects index), name: underNda, widget: boolean, default: false, required: false, hint: "Shows Private instead of Live/GitHub on /projects" }
+      - { label: Has case study detail page, name: hasDetailPage, widget: boolean, default: true, required: false, hint: "When disabled, title is not clickable on /projects and /projects/[slug] returns 404" }
+      - { label: Long Description, name: body, widget: markdown, required: false }

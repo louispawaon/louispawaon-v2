@@ -14,6 +14,7 @@
 
 	/* Foreground / Text */
 	--foreground: oklch(0.985 0 0); /* Purest white (#fafafa) */
+	/* #EAEAEA-tier body: project narrative “context”, /projects index titles (muted), detail H1 tone. */
 	--muted-foreground: oklch(0.93 0 0); /* Your #EAEAEA - Secondary text */
 
 	/* Primary / Accents */
@@ -37,7 +38,13 @@
 	--sidebar-primary: oklch(0.623 0.214 259.815);
 	--sidebar-border: oklch(1 0 0 / 10%);
 
-	/* Extended semantic tokens */
+	/*
+	 * Extended semantic tokens (project rework):
+	 * - subtle-foreground: /projects year labels, subtitles, “Private”, narrative subcontext.
+	 * - badge-tech: tech stack pills, “Live” CTA, live status pill on detail.
+	 * - surface-raised: neutral metadata pills, “Visit Repository” CTA.
+	 * - primary (above): section headings on case study, Live/GitHub links on /projects index.
+	 */
 	--subtle-foreground: oklch(0.678 0 0);    /* dim text: dates, CTAs, captions (#AAAAAA) */
 	--surface-raised: oklch(0.202 0 0);        /* badge/tooltip backgrounds (#333333) */
 	--border-visible: oklch(0.271 0 0);        /* visible borders: carousel, project card (#444444) */
@@ -46,10 +53,19 @@
 }
 
 @theme inline {
+	--font-dm-sans:
+		'DM Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+		'Segoe UI Symbol', 'Noto Color Emoji';
+	--font-epilogue:
+		'Epilogue', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+		'Segoe UI Symbol', 'Noto Color Emoji';
+
 	--radius-sm: calc(var(--radius) - 4px);
 	--radius-md: calc(var(--radius) - 2px);
 	--radius-lg: var(--radius);
 	--radius-xl: calc(var(--radius) + 4px);
+	/* Project UI: tech pills + detail/repo CTAs (was rounded-[6px]) */
+	--radius-pill: 6px;
 
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
@@ -82,7 +98,18 @@
 	/* Spacing tokens */
 	--spacing-section: 8.4375rem;     /* mt-[135px] top-offset for main content */
 	--spacing-section-gap: 2.125rem;  /* gap-[34px] between sections */
+	/*
+	 * Project vertical rhythm: detail stack is larger (major sections on case study).
+	 * Index year stack is smaller (space between year groups on /projects).
+	 */
+	--spacing-project-detail-stack: 4.5rem;
+	--spacing-project-index-year-stack: 4rem;
 	--width-content-max: 52.5rem;     /* max-w-[840px] content column width */
+	/* /projects index: fixed column for Live / GitHub / Private (was min/max-w-30) */
+	--width-project-index-action: 7.5rem;
+
+	/* /projects index row title (was text-[32px] / 2rem) */
+	--text-project-index-title: 2rem;
 }
 
 @layer base {

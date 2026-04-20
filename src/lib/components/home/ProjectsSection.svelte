@@ -25,11 +25,16 @@
 
 {#if projects.length}
 	<section id={sectionId} class="flex flex-col gap-section-gap">
-		<ul class="mx-auto flex w-full max-w-content-max list-none flex-col gap-12 p-0 md:gap-14">
-			{#each projects as project (project.slug)}
-				<ProjectStackItem {project} />
-			{/each}
-		</ul>
+		<div class="mx-auto flex w-full max-w-content-max flex-col gap-[34px]">
+			<p class="font-['Epilogue'] text-base font-light italic text-subtle-foreground">
+				Where my skills and ideas come to life
+			</p>
+			<ul class="flex w-full list-none flex-col gap-[72px] p-0">
+				{#each projects as project (project.slug)}
+					<ProjectStackItem {project} />
+				{/each}
+			</ul>
+		</div>
 
 		{#if showCta}
 			<a
