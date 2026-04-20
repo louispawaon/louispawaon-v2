@@ -17,9 +17,9 @@
 </script>
 
 {#if items.length > 0}
-	<ul
+		<ul
 		class={cn(
-			'm-0 grid w-max max-w-full list-none grid-cols-[repeat(3,max-content)] gap-4 p-0',
+			'm-0 flex min-w-0 w-full list-none flex-wrap gap-2 p-0 sm:gap-3 md:gap-4',
 			className
 		)}
 	>

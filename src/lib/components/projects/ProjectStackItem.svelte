@@ -31,7 +31,7 @@
 <li class="project-item w-full min-w-0">
 	<a
 		href="/projects/{project.slug}"
-		class="group flex min-w-0 flex-col gap-3 rounded-sm text-inherit no-underline outline-offset-4 transition-opacity hover:opacity-95 focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-ring md:flex-row md:items-start"
+		class="group flex min-w-0 flex-col gap-3 rounded-sm text-inherit no-underline outline-offset-4 transition-opacity hover:opacity-95 focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-ring lg:flex-row lg:items-start"
 	>
 		<div class="flex min-w-0 flex-1 flex-col gap-3">
 			{#if eyebrow}
@@ -40,12 +40,14 @@
 				</p>
 			{/if}
 
-			<h3 class="font-dm-sans text-[28px] font-bold leading-tight text-muted-foreground">
+			<h3
+				class="font-dm-sans text-lg font-bold leading-tight text-muted-foreground sm:text-xl md:text-2xl lg:text-[28px]"
+			>
 				{project.title}
 			</h3>
 
 			{#if previewProblem}
-				<p class="font-epilogue text-sm font-normal text-muted-foreground text-pretty">
+				<p class="font-epilogue text-sm font-normal text-muted-foreground text-pretty sm:text-base">
 					{previewProblem}
 				</p>
 			{/if}
@@ -60,7 +62,7 @@
 			{/if}
 
 			{#if project.technologies.length}
-				<div class="flex flex-wrap gap-2 pt-0.5">
+				<div class="flex flex-wrap gap-1.5 pt-0.5 sm:gap-2">
 					{#each project.technologies as tech (tech)}
 						<Badge
 							class="rounded-sm border-transparent bg-badge-tech px-2.5 py-0.5 font-dm-sans text-xs font-bold text-white"
@@ -74,7 +76,7 @@
 
 		{#if hasImage}
 			<div
-				class="h-[220px] w-full max-w-full shrink-0 overflow-hidden rounded-[25px] border border-border-visible bg-background/30 md:w-[415px] md:max-w-[415px]"
+				class="mx-auto h-[220px] w-full max-w-lg shrink-0 overflow-hidden rounded-[25px] border border-border-visible bg-background/30 lg:mx-0 lg:w-[415px] lg:max-w-[415px]"
 			>
 				<img
 					src={project.featuredImage}

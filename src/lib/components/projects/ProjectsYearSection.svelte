@@ -6,7 +6,7 @@
 </script>
 
 <section class="flex flex-col">
-	<h2 class="font-epilogue text-2xl font-medium text-subtle-foreground">{year}</h2>
+	<h2 class="font-epilogue text-xl font-medium text-subtle-foreground sm:text-2xl">{year}</h2>
 	<div class="mt-4 h-px w-full shrink-0 bg-subtle-foreground" aria-hidden="true"></div>
 	<div class="mt-8 flex flex-col gap-8">
 		{#each projects as project (project.slug)}

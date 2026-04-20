@@ -20,16 +20,16 @@
 	const showCta = $derived(Boolean(ctaLabel && ctaLink));
 	const ctaIsExternal = $derived(/^https?:\/\//i.test(ctaLink) || ctaLink.startsWith('//'));
 
-	const projectsArchiveHref = 'https://github.com/louispawaon?tab=repositories';
+	const projectsArchiveHref = '/projects';
 </script>
 
 {#if projects.length}
 	<section id={sectionId} class="flex flex-col gap-section-gap">
 		<div class="mx-auto flex w-full max-w-content-max flex-col gap-[34px]">
-			<p class="font-['Epilogue'] text-base font-light italic text-subtle-foreground">
+			<p class="font-epilogue text-base font-light italic text-subtle-foreground">
 				Where my skills and ideas come to life
 			</p>
-			<ul class="flex w-full list-none flex-col gap-[72px] p-0">
+			<ul class="flex w-full list-none flex-col gap-project-detail-stack p-0">
 				{#each projects as project (project.slug)}
 					<ProjectStackItem {project} />
 				{/each}
@@ -50,8 +50,6 @@
 
 		<a
 			href={projectsArchiveHref}
-			target="_blank"
-			rel="noopener noreferrer"
 			class="inline-flex items-center gap-1.5 text-sm font-light text-subtle-foreground italic transition-colors hover:text-primary sm:text-base"
 		>
 			View my projects archive

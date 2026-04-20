@@ -6,7 +6,7 @@
 </script>
 
 <div class="flex flex-col">
-	<h1 class="font-dm-sans text-3xl leading-tight font-bold text-foreground sm:text-4xl">
+	<h1 class="font-dm-sans text-2xl leading-tight font-bold text-foreground sm:text-3xl md:text-4xl">
 		Projects
 	</h1>
 	<div class="mt-10 flex flex-col gap-project-index-year-stack">
