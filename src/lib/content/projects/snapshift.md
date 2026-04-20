@@ -3,6 +3,9 @@ title: SnapShift
 description: A lightweight tool for converting HEIC images into more accessible formats like JPG and PNG, with support for bulk processing to streamline workflows involving Apple device images.
 lede: Turn folders of Apple HEICs into shareable JPGs and PNGs without babysitting each file.
 projectType: personal
+clientName: ''
+previewProblem: HEIC batches break workflows on non-Apple tooling.
+previewOutcome: Bulk HEIC → JPG/PNG with a small, scriptable pipeline.
 featuredImage: /media/projects/snapshift/snapshift-land.png
 gallery:
   - /media/projects/snapshift/SnapShift_prev.png
@@ -14,14 +17,7 @@ approach:
   subcontext: The focus was on making the process fast, scriptable, and easy to integrate into existing workflows.
 technicalDecisions:
   context: Focused on batch processing as a core feature instead of single-file conversion.
-  subcontext: |-
-    Kept the tool lightweight and CLI-friendly for flexibility.
-    Leveraged existing image processing libraries instead of reinventing conversion logic.
-    Designed for minimal setup and straightforward usage.
-    Python-based implementation for accessibility and rapid development.
-    Utilizes image processing libraries for handling HEIC decoding and format conversion.
-    File-based pipeline: input directory → conversion → output directory.
-    Optimized for handling multiple files efficiently in a single run.
+  subcontext: 'Kept the tool lightweight and CLI-friendly to maximize flexibility, avoiding unnecessary overhead in favor of scriptable, repeatable usage. Rather than reinventing conversion logic, we leveraged existing image processing libraries for reliable HEIC decoding and format conversion. The design emphasizes minimal setup and straightforward usage, making it easy to integrate into existing workflows. Built in Python for accessibility and rapid development, the tool follows a simple file-based pipeline: input directory → conversion → output directory. It is optimized to handle multiple files efficiently in a single run, ensuring fast batch processing without complex configuration.'
 outcome:
   - Eliminated the need for manual, one-by-one HEIC conversions
   - Reduced friction when working with Apple-generated images across platforms
@@ -35,8 +31,7 @@ roles:
   - Developer
 githubUrl: https://github.com/louispawaon/snapshift
 demoUrl: https://github.com/louispawaon/snapshift/releases/download/v1.0.0/SnapShift.exe
-featured: true
+featured: false
 status: Completed
-previewProblem: HEIC batches break workflows on non-Apple tooling.
-previewOutcome: Bulk HEIC → JPG/PNG with a small, scriptable pipeline.
+hasDetailPage: true
 ---
