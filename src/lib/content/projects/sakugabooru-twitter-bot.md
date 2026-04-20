@@ -20,7 +20,7 @@ technologies:
 roles:
   - Developer
 githubUrl: https://github.com/louispawaon/sakugabooru-bot
-demoUrl: ''
+demoUrl: https://x.com/BotSakuga
 featured: false
 status: Completed
 ifLive: false
