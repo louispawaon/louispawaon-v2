@@ -153,11 +153,11 @@ export function groupProjectsByYear(projects: ProjectEntry[]): ProjectYearGroup[
 }
 
 export type ProjectIndexAction =
-	| { kind: 'link'; label: 'Live' | 'Github'; href: string }
+	| { kind: 'link'; label: 'Live' | 'GitHub'; href: string }
 	| { kind: 'static'; label: 'Private' };
 
 /**
- * Outbound action for `/projects` index: Live (demo), Github, or Private (NDA or no URL).
+ * Outbound action for `/projects` index: Live (demo), GitHub, or Private (NDA or no URL).
  */
 export function projectIndexAction(project: ProjectEntry): ProjectIndexAction {
 	if (project.underNda === true) {
@@ -169,7 +169,7 @@ export function projectIndexAction(project: ProjectEntry): ProjectIndexAction {
 		return { kind: 'link', label: 'Live', href: demo };
 	}
 	if (gh.length > 0) {
-		return { kind: 'link', label: 'Github', href: gh };
+		return { kind: 'link', label: 'GitHub', href: gh };
 	}
 	return { kind: 'static', label: 'Private' };
 }
@@ -215,36 +215,6 @@ function legacyEngineeringArchitectureToBlock(
 	const [first, ...rest] = all;
 	const sub = rest.join('\n');
 	return { context: first, subcontext: sub.length > 0 ? sub : undefined };
-}
-
-/** Plain text for current templates (context + optional subcontext). */
-export function narrativeAsPlainText(block: ProjectNarrativeBlock | undefined): string | undefined {
-	if (!block?.context?.trim()) return undefined;
-	const ctx = block.context.trim();
-	const sub = block.subcontext?.trim();
-	return sub ? `${ctx}\n\n${sub}` : ctx;
-}
-
-/**
- * Maps the merged technical-decisions narrative onto the two legacy list fields
- * so the existing project page can show one combined list under Engineering and skip Architecture when empty.
- */
-export function technicalDecisionsAsLegacyLists(block: ProjectNarrativeBlock | undefined): {
-	engineeringDecisions: string[];
-	architecture: string[];
-} {
-	if (!block?.context?.trim()) {
-		return { engineeringDecisions: [], architecture: [] };
-	}
-	const lines: string[] = [block.context.trim()];
-	const sub = block.subcontext?.trim();
-	if (sub) {
-		for (const line of sub.split(/\n+/)) {
-			const t = line.trim();
-			if (t.length > 0) lines.push(t);
-		}
-	}
-	return { engineeringDecisions: lines, architecture: [] };
 }
 
 function parseProjectModule(path: string, raw: string): ProjectEntry | null {
@@ -306,7 +276,15 @@ export function getCarouselImages(project: ProjectEntry): string[] {
 	return out;
 }
 
+/**
+ * Parsed project list for this Node/build process only. Clears on cold start / redeploy;
+ * in dev, restart dev server after editing markdown if you need a fresh parse.
+ */
+let allProjectsCache: ProjectEntry[] | null = null;
+
 export function loadAllProjects(): ProjectEntry[] {
+	if (allProjectsCache) return allProjectsCache;
+
 	const modules = import.meta.glob('$lib/content/projects/*.md', {
 		query: '?raw',
 		eager: true
@@ -320,7 +298,9 @@ export function loadAllProjects(): ProjectEntry[] {
 		if (entry) entries.push(entry);
 	}
 
-	return entries.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+	entries.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+	allProjectsCache = entries;
+	return allProjectsCache;
 }
 
 export function getProjectBySlug(slug: string): ProjectEntry | undefined {

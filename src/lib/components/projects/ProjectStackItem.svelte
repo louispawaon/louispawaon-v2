@@ -35,24 +35,24 @@
 	>
 		<div class="flex min-w-0 flex-1 flex-col gap-3">
 			{#if eyebrow}
-				<p class="font-['Epilogue'] text-xs font-medium text-subtle-foreground">
+				<p class="font-epilogue text-xs font-medium text-subtle-foreground">
 					{eyebrow}
 				</p>
 			{/if}
 
-			<h3 class="font-['DM_Sans'] text-[28px] font-bold leading-tight text-muted-foreground">
+			<h3 class="font-dm-sans text-[28px] font-bold leading-tight text-muted-foreground">
 				{project.title}
 			</h3>
 
 			{#if previewProblem}
-				<p class="font-['Epilogue'] text-sm font-normal text-muted-foreground text-pretty">
+				<p class="font-epilogue text-sm font-normal text-muted-foreground text-pretty">
 					{previewProblem}
 				</p>
 			{/if}
 
 			{#if previewOutcome}
 				<p
-					class="inline-flex items-center gap-1 font-['Epilogue'] text-xs font-normal text-primary"
+					class="inline-flex items-center gap-1 font-epilogue text-xs font-normal text-primary"
 				>
 					<Icon icon="mdi:arrow-right" class="size-3.5 shrink-0" aria-hidden="true" />
 					{previewOutcome}
@@ -63,7 +63,7 @@
 				<div class="flex flex-wrap gap-2 pt-0.5">
 					{#each project.technologies as tech (tech)}
 						<Badge
-							class="rounded-sm border-transparent bg-badge-tech px-2.5 py-0.5 font-['DM_Sans'] text-xs font-bold text-white"
+							class="rounded-sm border-transparent bg-badge-tech px-2.5 py-0.5 font-dm-sans text-xs font-bold text-white"
 						>
 							{tech}
 						</Badge>

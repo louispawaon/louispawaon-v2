@@ -23,7 +23,7 @@
 			aria-hidden="true"
 		></div>
 		<p
-			class="min-w-0 flex-1 text-pretty font-['Epilogue'] text-sm font-light leading-relaxed italic {textToneClass}"
+			class="min-w-0 flex-1 text-pretty font-epilogue text-sm font-light leading-relaxed italic {textToneClass}"
 		>
 			{text}
 		</p>

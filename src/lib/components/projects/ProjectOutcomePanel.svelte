@@ -15,7 +15,7 @@
 						aria-hidden="true"
 					/>
 					<span
-						class="min-w-0 flex-1 text-pretty font-['Epilogue'] text-lg leading-relaxed font-medium italic text-muted-foreground"
+						class="min-w-0 flex-1 text-pretty font-epilogue text-lg leading-relaxed font-medium italic text-muted-foreground"
 					>
 						{line}
 					</span>
