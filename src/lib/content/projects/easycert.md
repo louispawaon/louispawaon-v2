@@ -30,7 +30,6 @@ technologies:
   - NextJS
   - TailwindCSS
   - TypeScript
-  - Sveltia CMS
 roles:
   - Developer
 githubUrl: https://github.com/louispawaon/easycert
