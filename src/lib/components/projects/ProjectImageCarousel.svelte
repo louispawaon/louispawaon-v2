@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
-	import { Card, CardContent } from '$lib/components/ui/card';
 	import { projectCoverTransitionName } from '$lib/utils/projects';
 
 	let {
@@ -10,30 +9,33 @@
 	}: {
 		images: string[];
 		imageAltBase?: string;
-		/** When set, the first slide image participates in the same view transition as the home project card. */
 		coverTransitionSlug?: string | null;
 	} = $props();
 
 	const slides = $derived(images.length > 0 ? images : ['']);
 	const showControls = $derived(slides.length > 1);
 	const slideCount = $derived(slides.length);
-	const trackPercent = $derived(slideCount * 100);
-	const slideWidthOnTrackPercent = $derived(100 / slideCount);
 
-	let regionEl = $state<HTMLDivElement | null>(null);
+	let stripEl = $state<HTMLDivElement | null>(null);
 	let activeIndex = $state(0);
-	const translateXPct = $derived(-activeIndex * slideWidthOnTrackPercent);
-
-	let dragPointerId = $state<number | null>(null);
-	let pointerStartX = 0;
+	let lightboxIndex = $state<number | null>(null);
 
 	const atStart = $derived(activeIndex <= 0);
 	const atEnd = $derived(activeIndex >= slideCount - 1);
 
+	function scrollSlideIntoView(index: number) {
+		const root = stripEl;
+		if (!root) return;
+		const el = root.querySelector<HTMLElement>(`[data-carousel-slide="${index}"]`);
+		el?.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+	}
+
 	function goTo(index: number) {
 		const n = slideCount;
 		if (n === 0) return;
-		activeIndex = Math.max(0, Math.min(n - 1, index));
+		const next = Math.max(0, Math.min(n - 1, index));
+		activeIndex = next;
+		scrollSlideIntoView(next);
 	}
 
 	function goPrev() {
@@ -54,32 +56,43 @@
 		}
 	}
 
-	function onPointerDown(e: PointerEvent) {
-		if (e.button !== 0) return;
-		dragPointerId = e.pointerId;
-		pointerStartX = e.clientX;
-		regionEl?.setPointerCapture(e.pointerId);
+	function openLightbox(index: number) {
+		lightboxIndex = index;
 	}
 
-	function onPointerUp(e: PointerEvent) {
-		if (dragPointerId === null || e.pointerId !== dragPointerId) return;
-		const dx = e.clientX - pointerStartX;
-		const threshold = 48;
-		if (dx > threshold) {
+	function closeLightbox() {
+		lightboxIndex = null;
+	}
+
+	function onWindowKeydown(e: KeyboardEvent) {
+		if (lightboxIndex == null) return;
+		if (e.key === 'Escape') {
+			e.preventDefault();
+			closeLightbox();
+			return;
+		}
+		if (e.key === 'ArrowLeft') {
+			e.preventDefault();
+			lightboxIndex = Math.max(0, activeIndex - 1);
 			goPrev();
-		} else if (dx < -threshold) {
+			return;
+		}
+		if (e.key === 'ArrowRight') {
+			e.preventDefault();
+			lightboxIndex = Math.min(slideCount - 1, activeIndex + 1);
 			goNext();
 		}
-		dragPointerId = null;
-		try {
-			regionEl?.releasePointerCapture(e.pointerId);
-		} catch {
-			/* already released */
-		}
 	}
 
-	function onLostPointerCapture() {
-		dragPointerId = null;
+	function onStripScroll() {
+		const root = stripEl;
+		if (!root || slideCount <= 1) return;
+		const first = root.querySelector<HTMLElement>('[data-carousel-slide="0"]');
+		if (!first) return;
+		const stride = first.offsetWidth + 16;
+		if (stride <= 0) return;
+		const i = Math.round(root.scrollLeft / stride);
+		activeIndex = Math.max(0, Math.min(slideCount - 1, i));
 	}
 
 	$effect(() => {
@@ -90,9 +103,13 @@
 	});
 </script>
 
-<div class="relative">
+<svelte:window onkeydown={onWindowKeydown} />
+
+<div class="relative w-full min-w-0 max-w-full">
 	{#if showControls}
-		<div class="pointer-events-none absolute inset-y-0 left-0 z-10 flex w-12 items-center justify-start pl-0 sm:w-14">
+		<div
+			class="pointer-events-none absolute inset-y-0 left-0 z-10 flex w-12 items-center justify-start pl-0 sm:w-14"
+		>
 			<button
 				type="button"
 				class="pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full border border-border-visible bg-background/90 text-foreground shadow-sm backdrop-blur-sm transition-colors hover:border-primary hover:text-primary disabled:pointer-events-none disabled:opacity-30"
@@ -103,7 +120,9 @@
 				<Icon icon="mdi:chevron-left" class="h-6 w-6" />
 			</button>
 		</div>
-		<div class="pointer-events-none absolute inset-y-0 right-0 z-10 flex w-12 items-center justify-end pr-0 sm:w-14">
+		<div
+			class="pointer-events-none absolute inset-y-0 right-0 z-10 flex w-12 items-center justify-end pr-0 sm:w-14"
+		>
 			<button
 				type="button"
 				class="pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full border border-border-visible bg-background/90 text-foreground shadow-sm backdrop-blur-sm transition-colors hover:border-primary hover:text-primary disabled:pointer-events-none disabled:opacity-30"
@@ -119,52 +138,43 @@
 	<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 	<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 	<div
-		bind:this={regionEl}
-		class="w-full max-w-full cursor-grab overflow-hidden pb-2 active:cursor-grabbing"
+		bind:this={stripEl}
+		class="flex min-w-0 cursor-grab snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-hidden pb-2 [-ms-overflow-style:none] [scrollbar-width:none] active:cursor-grabbing [&::-webkit-scrollbar]:hidden"
 		role="region"
 		aria-roledescription="carousel"
 		aria-label={`${imageAltBase} images`}
 		tabindex={showControls ? 0 : -1}
 		onkeydown={onKeydown}
-		onpointerdown={onPointerDown}
-		onpointerup={onPointerUp}
-		onpointercancel={onPointerUp}
-		onlostpointercapture={onLostPointerCapture}
-		style="touch-action: pan-y pinch-zoom;"
+		onscroll={onStripScroll}
+		style="touch-action: pan-x pinch-zoom;"
 	>
-		<div
-			class="flex flex-row transition-transform duration-300 ease-out"
-			style:width="{trackPercent}%"
-			style:transform="translateX({translateXPct}%)"
-		>
-			{#each slides as src, i (i)}
-				<div
-					data-carousel-slide={i}
-					class="box-border max-w-full shrink-0"
-					style:width="{slideWidthOnTrackPercent}%"
-				>
-					<Card variant="project" class="w-full max-w-full">
-						<CardContent class="px-0">
-							<div class="aspect-video w-full overflow-hidden bg-background/30">
-								{#if src}
-									<img
-										src={src}
-										alt={`${imageAltBase} — image ${i + 1}`}
-										class="pointer-events-none h-full w-full object-cover select-none"
-										draggable="false"
-										loading={i === 0 ? 'eager' : 'lazy'}
-										decoding="async"
-										style:view-transition-name={i === 0 && coverTransitionSlug
-											? projectCoverTransitionName(coverTransitionSlug)
-											: undefined}
-									/>
-								{/if}
-							</div>
-						</CardContent>
-					</Card>
-				</div>
-			{/each}
-		</div>
+		{#each slides as src, i (i)}
+			<div
+				data-carousel-slide={i}
+				class="aspect-video w-full max-w-full shrink-0 snap-start overflow-hidden rounded-[25px] border border-border-visible bg-background/30 md:w-[415px] md:max-w-[415px]"
+			>
+				{#if src}
+					<button
+						type="button"
+						class="block h-full w-full"
+						aria-label={`Open ${imageAltBase} image ${i + 1} fullscreen`}
+						onclick={() => openLightbox(i)}
+					>
+						<img
+							src={src}
+							alt={`${imageAltBase} — image ${i + 1}`}
+							class="pointer-events-none h-full w-full object-contain select-none"
+							draggable="false"
+							loading={i === 0 ? 'eager' : 'lazy'}
+							decoding="async"
+							style:view-transition-name={i === 0 && coverTransitionSlug
+								? projectCoverTransitionName(coverTransitionSlug)
+								: undefined}
+						/>
+					</button>
+				{/if}
+			</div>
+		{/each}
 	</div>
 
 	{#if slides.length > 1}
@@ -185,7 +195,74 @@
 
 	{#if showControls}
 		<p class="mt-2 text-center text-xs font-light text-subtle-foreground">
-			Arrows, dots, or swipe — keyboard ← → when focused
+			Scroll or use arrows — keyboard ← → when focused. Click image to view full size.
 		</p>
 	{/if}
 </div>
+
+{#if lightboxIndex !== null}
+	<div
+		class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4"
+		role="dialog"
+		aria-modal="true"
+		aria-label={`${imageAltBase} fullscreen image viewer`}
+		tabindex="-1"
+		onclick={(e) => {
+			if (e.currentTarget === e.target) closeLightbox();
+		}}
+		onkeydown={(e) => {
+			if (e.currentTarget === e.target && (e.key === 'Enter' || e.key === ' ')) {
+				e.preventDefault();
+				closeLightbox();
+			}
+		}}
+	>
+		<button
+			type="button"
+			class="absolute top-4 right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-black/50 text-white transition-colors hover:border-white hover:bg-black/70"
+			aria-label="Close fullscreen image"
+			onclick={closeLightbox}
+		>
+			<Icon icon="mdi:close" class="h-5 w-5" />
+		</button>
+
+		{#if showControls}
+			<div class="pointer-events-none absolute inset-y-0 left-0 z-10 flex w-14 items-center justify-start pl-2">
+				<button
+					type="button"
+					class="pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-black/60 text-white transition-colors hover:border-white hover:bg-black/80 disabled:pointer-events-none disabled:opacity-30"
+					aria-label="Previous fullscreen image"
+					disabled={atStart}
+					onclick={() => {
+						lightboxIndex = Math.max(0, activeIndex - 1);
+						goPrev();
+					}}
+				>
+					<Icon icon="mdi:chevron-left" class="h-6 w-6" />
+				</button>
+			</div>
+
+			<div class="pointer-events-none absolute inset-y-0 right-0 z-10 flex w-14 items-center justify-end pr-2">
+				<button
+					type="button"
+					class="pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-black/60 text-white transition-colors hover:border-white hover:bg-black/80 disabled:pointer-events-none disabled:opacity-30"
+					aria-label="Next fullscreen image"
+					disabled={atEnd}
+					onclick={() => {
+						lightboxIndex = Math.min(slideCount - 1, activeIndex + 1);
+						goNext();
+					}}
+				>
+					<Icon icon="mdi:chevron-right" class="h-6 w-6" />
+				</button>
+			</div>
+		{/if}
+
+		<img
+			src={slides[lightboxIndex]}
+			alt={`${imageAltBase} — image ${lightboxIndex + 1}`}
+			class="max-h-[92vh] max-w-[96vw] object-contain"
+			decoding="async"
+		/>
+	</div>
+{/if}
