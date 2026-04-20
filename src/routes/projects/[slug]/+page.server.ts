@@ -10,7 +10,7 @@ function ogDescription(text: string, max = 160): string {
 
 export const load: PageServerLoad = ({ params }) => {
 	const project = getProjectBySlug(params.slug);
-	if (!project) {
+	if (!project || project.hasDetailPage === false) {
 		error(404, 'Project not found');
 	}
 
