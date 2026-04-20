@@ -6,9 +6,9 @@ projectType: personal
 clientName: ''
 previewProblem: I was spending 20–30 minutes per job application just deciding if a role was worth pursuing.
 previewOutcome: Instead of building a web app, I built a Telegram bot.
-featuredImage: /media/projects/matchra/matchra-land.png
+featuredImage: /media/projects/matchra/matchra-land-1.png
 gallery:
-  - /media/projects/matchra/matchra-land.png
+  - /media/projects/matchra/matchra-land-1.png
   - /media/projects/matchra/matchra-workflow.png
 problem:
   context: I was spending 20–30 minutes per job application just deciding if a role was worth pursuing.
