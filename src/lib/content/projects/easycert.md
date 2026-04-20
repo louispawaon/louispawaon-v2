@@ -3,6 +3,9 @@ title: EasyCert
 description: A web-based platform that automates certificate generation for multiple use cases. users upload custom certificate designs, map participant data to placeholders, and generate personalized certificates in bulk, ready for download distribution.
 lede: Automate certificate design, mapping, and bulk generation so hosts can ship credentials without spreadsheet chaos.
 projectType: personal
+clientName: ''
+previewProblem: Organizations waste hours generating certificates one-by-one. EasyCert lets you upload a template, map participant data, and export bulk PDFs in seconds.
+previewOutcome: Used at actual seminars with 50 participants - organizers went from 1 hour to under 10 minutes
 featuredImage: /media/projects/easycert/easycert-land.png
 gallery:
   - /media/projects/easycert/easycert-home.png
@@ -17,20 +20,17 @@ approach:
   subcontext: Users upload custom certificate designs, map participant data to placeholders, and generate personalized certificates in bulk, ready for download distribution.
 technicalDecisions:
   context: Kept the UI minimal to prioritize speed and ease of use.
-  subcontext: |-
-    Handled template and data mapping in a straightforward, user-driven flow.
-    Focused on bulk generation as a core feature instead of adding unnecessary complexity.
-    Frontend built with Next.js and React for interactive user flow.
-    Client-side handling of template preview and data mapping.
-    Simple processing pipeline for generating certificates from input data.
+  subcontext: The design of the  application revolves around a straightforward, user-driven flow for template and data mapping, keeping the experience intuitive and accessible. Rather than adding unnecessary complexity, we made bulk generation the core feature, enabling users to create multiple certificates efficiently. The frontend, built with Next.js and React, supports an interactive user flow that includes client-side template preview and data mapping. This is paired with a simple processing pipeline that takes input data and generates certificates seamlessly.
 outcome:
+  - Used at actual seminars with 50 participants - organizers went from 1 hour to under 10 minutes
+  - Non-technical users could operate it without any instruction
   - Eliminated repetitive manual certificate editing
-  - Reduced time needed to generate certificates for events
-  - Provided a simple tool usable without technical knowledge
 date: 2026-03-22
 technologies:
   - NextJS
   - TailwindCSS
+  - TypeScript
+  - Sveltia CMS
 roles:
   - Developer
 githubUrl: https://github.com/louispawaon/easycert
@@ -38,6 +38,5 @@ demoUrl: https://easycert.vercel.app/
 featured: true
 status: Completed
 ifLive: true
-previewProblem: Event hosts were stuck doing one-off certificates by hand.
-previewOutcome: Upload a template, map fields once, and generate certificates in bulk.
+hasDetailPage: true
 ---
