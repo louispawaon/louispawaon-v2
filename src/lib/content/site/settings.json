@@ -7,6 +7,10 @@
     {
       "label": "get to know migs",
       "href": "/about"
+    },
+    {
+      "label": "projects",
+      "href": "/projects"
     }
   ],
   "socialLinks": [
