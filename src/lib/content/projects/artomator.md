@@ -1,6 +1,6 @@
 ---
 title: Artomator
-description: Admin Portal for an E-Commerce Platform, Rock 'Em Socks
+description: Admin Portal for an E-Commerce Platform, Rock 'Em Socks.
 lede: ''
 projectType: company
 clientName: Mugna Technologies Inc.
