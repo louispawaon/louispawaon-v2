@@ -1,6 +1,6 @@
 ---
 title: Project Blueprint
-description: ''
+description: Initialize and scaffold a web development project for multi-purpose clients.
 lede: ''
 projectType: company
 clientName: Mugna Technologies Inc.
