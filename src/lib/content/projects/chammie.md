@@ -1,6 +1,6 @@
 ---
 title: Chammie
-description: Chammie is a dark purple theme inspired by the colors of the Computer Studies Cluster of Ateneo de Davao University College
+description: Chammie is a dark purple theme inspired by the colors of the Computer Studies Cluster of Ateneo de Davao University.
 lede: ''
 projectType: personal
 clientName: ''
