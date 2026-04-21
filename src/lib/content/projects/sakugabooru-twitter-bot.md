@@ -1,6 +1,6 @@
 ---
 title: SakugaBooru Twitter Bot
-description: Twitter bot dedicated for sakuga animation and its glorious beauty
+description: Twitter bot dedicated for sakuga animation and its glorious beauty.
 lede: ''
 projectType: personal
 clientName: ''
