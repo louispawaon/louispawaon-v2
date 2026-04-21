@@ -31,7 +31,7 @@
 			</p>
 			<ul class="flex w-full list-none flex-col gap-project-detail-stack p-0">
 				{#each projects as project (project.slug)}
-					<ProjectStackItem {project} />
+					<ProjectStackItem {project} from="home" />
 				{/each}
 			</ul>
 		</div>

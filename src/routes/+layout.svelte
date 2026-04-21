@@ -69,6 +69,16 @@
 	);
 	const canonicalUrl = $derived(`${page.url.origin}${page.url.pathname}`);
 	const ogImageUrl = $derived(`${page.url.origin}/media/openimage.png`);
+
+	const isProjectDetailPage = $derived(/^\/projects\/[^/]+$/.test(page.url.pathname));
+	const backHref = $derived.by(() => {
+		const path = page.url.pathname;
+		if (path === '/') return '/';
+		if (isProjectDetailPage) {
+			return page.url.searchParams.get('from') === 'home' ? '/' : '/projects';
+		}
+		return '/';
+	});
 </script>
 
 <svelte:head>
@@ -121,7 +131,7 @@
 			{#if page.url.pathname !== '/'}
 				<div class="mt-section mb-8">
 					<a
-						href="/"
+						href={backHref}
 						class="inline-flex items-center gap-1.5 text-sm font-light text-subtle-foreground italic transition-colors hover:text-primary"
 					>
 						<Icon icon="mdi:arrow-left" class="h-4 w-4" />

@@ -5,6 +5,8 @@ export type ProjectNarrativeBlock = {
 	subcontext?: string;
 };
 
+export type ProjectDetailFrom = 'home' | 'projects';
+
 export type ProjectType = 'assessment' | 'personal' | 'company' | 'org';
 
 const PROJECT_TYPES = new Set<ProjectType>(['assessment', 'personal', 'company', 'org']);

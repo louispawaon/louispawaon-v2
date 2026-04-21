@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { page } from '$app/state';
+
 	type HeroAction = {
 		label: string;
 		href: string;
@@ -9,6 +11,12 @@
 	}: {
 		actions?: HeroAction[];
 	} = $props();
+
+	function isActiveNavLink(href: string, pathname: string): boolean {
+		const h = href.trim();
+		if (!h.startsWith('/')) return false;
+		return pathname === h || pathname.startsWith(`${h}/`);
+	}
 </script>
 
 {#if actions.length}
@@ -16,7 +24,12 @@
 		class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-primary md:flex-col md:items-end md:gap-[10px] md:text-base lg:text-[20px]"
 	>
 		{#each actions as action}
-			<a href={action.href} class="underline-offset-4 hover:underline">
+			{@const active = isActiveNavLink(action.href, page.url.pathname)}
+			<a
+				href={action.href}
+				class="underline-offset-4 {active ? 'underline' : 'hover:underline'}"
+				aria-current={active ? 'page' : undefined}
+			>
 				{action.label}
 			</a>
 		{/each}

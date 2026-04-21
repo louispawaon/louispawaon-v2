@@ -11,16 +11,17 @@
 
 	const action = $derived(projectIndexAction(project));
 	const subtitle = $derived(projectIndexSubtitle(project));
+	const description = $derived((project.description ?? '').trim());
 </script>
 
 <article
 	class="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] lg:gap-x-8 lg:items-start"
 >
-	<div class="min-w-0">
+	<div class="flex min-w-0 flex-col gap-1.5">
 		<h3 class="m-0 p-0 font-normal">
 			{#if project.hasDetailPage}
 				<a
-					href="/projects/{project.slug}"
+					href="/projects/{project.slug}?from=projects"
 					class="block font-dm-sans text-lg leading-tight font-bold text-muted-foreground no-underline transition-colors hover:text-primary sm:text-xl md:text-2xl lg:text-project-index-title"
 				>
 					{project.title}
@@ -33,8 +34,15 @@
 				</span>
 			{/if}
 		</h3>
+		{#if description}
+			<p
+				class="font-epilogue text-xs font-normal leading-snug text-subtle-foreground text-pretty sm:text-sm"
+			>
+				{description}
+			</p>
+		{/if}
 		{#if subtitle}
-			<p class="mt-1 font-epilogue text-sm font-medium text-subtle-foreground sm:text-base md:text-lg lg:text-xl">
+			<p class="font-epilogue text-sm font-medium text-subtle-foreground sm:text-base md:text-lg lg:text-xl">
 				{subtitle}
 			</p>
 		{/if}

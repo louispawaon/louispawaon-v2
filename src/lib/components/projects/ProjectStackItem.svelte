@@ -4,11 +4,17 @@
 	import {
 		projectCoverTransitionName,
 		rolesForHomepage,
+		type ProjectDetailFrom,
 		type ProjectEntry,
 		type ProjectType
 	} from '$lib/utils/projects';
 
-	let { project }: { project: ProjectEntry } = $props();
+	let {
+		project,
+		from = 'projects'
+	}: { project: ProjectEntry; from?: ProjectDetailFrom } = $props();
+
+	const projectHref = $derived(`/projects/${project.slug}?from=${from}`);
 
 	const roles = $derived(rolesForHomepage(project));
 
@@ -30,7 +36,7 @@
 
 <li class="project-item w-full min-w-0">
 	<a
-		href="/projects/{project.slug}"
+		href={projectHref}
 		class="group flex min-w-0 flex-col gap-3 rounded-sm text-inherit no-underline outline-offset-4 transition-opacity hover:opacity-95 focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-ring lg:flex-row lg:items-start"
 	>
 		<div class="flex min-w-0 flex-1 flex-col gap-3">
