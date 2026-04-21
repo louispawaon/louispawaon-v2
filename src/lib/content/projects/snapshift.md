@@ -1,6 +1,6 @@
 ---
 title: SnapShift
-description: A lightweight tool for converting HEIC images into more accessible formats like JPG and PNG, with support for bulk processing to streamline workflows involving Apple device images.
+description: A lightweight tool that converts .heic files to multiple image formats in bulk.
 lede: Turn folders of Apple HEICs into shareable JPGs and PNGs without babysitting each file.
 projectType: personal
 clientName: ''
