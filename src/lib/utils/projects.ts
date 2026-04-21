@@ -158,20 +158,23 @@ export type ProjectIndexAction =
 	| { kind: 'link'; label: 'Live' | 'GitHub'; href: string }
 	| { kind: 'static'; label: 'Private' };
 
-/**
- * Outbound action for `/projects` index: Live (demo), GitHub, or Private (NDA or no URL).
- */
 export function projectIndexAction(project: ProjectEntry): ProjectIndexAction {
 	if (project.underNda === true) {
 		return { kind: 'static', label: 'Private' };
 	}
 	const demo = typeof project.demoUrl === 'string' ? project.demoUrl.trim() : '';
 	const gh = typeof project.githubUrl === 'string' ? project.githubUrl.trim() : '';
-	if (project.ifLive === true && demo.length > 0) {
+	const hasDemo = demo.length > 0;
+	const hasGh = gh.length > 0;
+
+	if (hasDemo && hasGh) {
 		return { kind: 'link', label: 'Live', href: demo };
 	}
-	if (gh.length > 0) {
+	if (hasGh) {
 		return { kind: 'link', label: 'GitHub', href: gh };
+	}
+	if (hasDemo) {
+		return { kind: 'link', label: 'Live', href: demo };
 	}
 	return { kind: 'static', label: 'Private' };
 }
