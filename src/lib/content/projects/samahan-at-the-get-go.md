@@ -1,6 +1,6 @@
 ---
 title: SAMAHAN At The Get-Go
-description: The 2024 Official Website of SAMAHAN, the Student Government of Ateneo de Davao University
+description: The 2024 Official Website of SAMAHAN, the Student Government of Ateneo de Davao University.
 lede: ''
 projectType: org
 clientName: SAMAHAN Systems Development
