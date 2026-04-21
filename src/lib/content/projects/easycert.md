@@ -1,6 +1,6 @@
 ---
 title: EasyCert
-description: A web-based platform that automates certificate generation for multiple use cases. users upload custom certificate designs, map participant data to placeholders, and generate personalized certificates in bulk, ready for download distribution.
+description: A web-based platform that automates certificate generation for multiple use cases.
 lede: Automate certificate design, mapping, and bulk generation so hosts can ship credentials without spreadsheet chaos.
 projectType: personal
 clientName: ''
