@@ -1,6 +1,6 @@
 ---
 title: CitiHardware
-description: ''
+description: E-Commerce platform of one of the biggest hardware stores in the Philippines.
 lede: ''
 projectType: company
 clientName: Mugna Technologies Inc.
