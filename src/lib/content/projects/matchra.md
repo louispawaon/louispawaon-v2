@@ -1,6 +1,6 @@
 ---
 title: Matchra
-description: A self-hosted Telegram bot that evaluates job descriptions against your resume using a local LLM. Paste a job description or send a link, get a match score, a breakdown of where you fit and where you don't, and an honest explanation — all from your phone.
+description: A self-hosted Telegram bot that evaluates job descriptions against your resume using a local LLM.
 lede: A self-hosted job fit analyzer that tells you whether to apply — before you spend an hour writing a cover letter.
 projectType: personal
 clientName: ''
