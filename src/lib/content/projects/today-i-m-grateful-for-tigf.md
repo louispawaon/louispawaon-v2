@@ -33,7 +33,7 @@ technologies:
   - TanStack Start
 roles: []
 githubUrl: https://github.com/louispawaon/tigf-v2
-demoUrl: https://develop-tigf.louispawaon.workers.dev/
+demoUrl: https://tigf.project1of1.com/
 featured: true
 status: Completed
 ifLive: true
