@@ -1,6 +1,6 @@
 ---
 title: Anti-Asura Browser Extension
-description: ''
+description: A lightweight Chrome extension that blocks intrusive pop-up ads on AsuraScans.
 lede: ''
 projectType: personal
 clientName: ''
