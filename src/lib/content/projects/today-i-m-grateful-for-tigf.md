@@ -31,7 +31,8 @@ technologies:
   - TailwindCSS
   - Dexie.js
   - TanStack Start
-roles: []
+roles:
+  - Developer
 githubUrl: https://github.com/louispawaon/tigf-v2
 demoUrl: https://tigf.project1of1.com/
 featured: true
