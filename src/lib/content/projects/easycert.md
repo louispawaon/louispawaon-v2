@@ -6,12 +6,12 @@ projectType: personal
 clientName: ''
 previewProblem: Organizations waste hours generating certificates one-by-one. EasyCert lets you upload a template, map participant data, and export bulk PDFs in seconds.
 previewOutcome: Used at actual seminars with 50 participants - organizers went from 1 hour to under 10 minutes
-featuredImage: /media/projects/easycert/easycert-land.png
+featuredImage: /media/projects/easycert/easycert-land-1.png
 gallery:
-  - /media/projects/easycert/easycert-home.png
-  - /media/projects/easycert/easycert-design.png
-  - /media/projects/easycert/easycert-preview.png
-  - /media/projects/easycert/easycert-generate.png
+  - /media/projects/easycert/easycert-1.png
+  - /media/projects/easycert/easycert-2.png
+  - /media/projects/easycert/easycert-3.png
+  - /media/projects/easycert/easycert-0.png
 problem:
   context: Organizations and event hosts often struggle to create and distribute certificates manually.
   subcontext: Existing solutions were either rigid, required technical knowledge, or lacked bulk generation features, making it slow and error-prone for large groups.
@@ -25,7 +25,7 @@ outcome:
   - Used at actual seminars with 50 participants - organizers went from 1 hour to under 10 minutes
   - Non-technical users could operate it without any instruction
   - Eliminated repetitive manual certificate editing
-date: 2026-03-22
+date: 2026-05-07
 technologies:
   - NextJS
   - TailwindCSS
