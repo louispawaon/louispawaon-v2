@@ -32,7 +32,8 @@ technologies:
   - Redis
   - BullMQ
   - PostgreSQL
-roles: []
+roles:
+  - Full Stack Developer
 githubUrl: ''
 demoUrl: https://pickd.project1of1.com/
 featured: true
