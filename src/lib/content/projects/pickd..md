@@ -19,7 +19,7 @@ approach:
   context: Instead of building another booking platform, we built a bridge between them — a single window into every court in the city.
   subcontext: "We started with Davao City and Mindanao, onboarded every booking platform we could find, and designed the experience to be dead simple: pick a date, see what's free, tap to proceed to the booking provider."
 technicalDecisions:
-  context: Tiered sync by date horizo
+  context: Tiered sync by date horizon
   subcontext: Today through next 7 days sync every 30 minutes; days 8–14 every 3 hours; further dates only on demand. Why fetch 15,000 API calls a day when most dates are never viewed by anyone? The cost is a slightly slower experience for users who search far in advance.
 outcome:
   - The system aggregates 8+ platforms plus manual venues into one database, surfaced through the same interface.
