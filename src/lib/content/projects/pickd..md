@@ -5,7 +5,7 @@ lede: pickd. consolidates real-time court availability from 8+ booking platforms
 projectType: personal
 clientName: ''
 previewProblem: Mindanao pickleball players have to check multiple different booking sites just to find a free court.
-previewOutcome: pickd. turned a fragmented, multi-tab booking hunt into a single mobile-first search — players in Davao City and Mindanao can now see every available court across 8+ platforms in under a second.
+previewOutcome: pickd. turned a fragmented, multi-tab booking hunt into a single mobile-first search across 8+ platforms in under a second.
 featuredImage: /media/projects/pickd./opengraph-image.png
 gallery:
   - /media/projects/pickd./Screenshot (23).png
