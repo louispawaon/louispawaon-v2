@@ -33,7 +33,7 @@ technologies:
 roles:
   - Developer
 githubUrl: https://github.com/louispawaon/easycert
-demoUrl: https://easycert.vercel.app/
+demoUrl: https://easycert.project1of1.com/
 featured: true
 status: Completed
 ifLive: true
