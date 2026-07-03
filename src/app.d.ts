@@ -10,7 +10,7 @@ declare global {
 			 * Root layout also sets `ogDefaultDescription` so a page can override only `title`
 			 * without losing the site-wide OG description.
 			 */
-			meta?: { title: string; description?: string };
+			meta?: { title: string; description?: string; ogImage?: string };
 			ogDefaultDescription?: string;
 		}
 		// interface PageState {}

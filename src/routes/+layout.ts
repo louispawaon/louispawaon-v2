@@ -18,7 +18,7 @@ export const load: LayoutLoad = async () => {
 
 	return {
 		settings,
-		meta: { title: 'Migs', description: OG_DEFAULT_DESCRIPTION },
+		meta: { title: 'Migs Pawaon — Full-Stack Developer', description: OG_DEFAULT_DESCRIPTION },
 		ogDefaultDescription: OG_DEFAULT_DESCRIPTION
 	};
 };

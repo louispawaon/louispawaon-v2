@@ -20,7 +20,8 @@ export const load: PageServerLoad = ({ params }) => {
 		carouselImages: getCarouselImages(project),
 		meta: {
 			title: `${project.title} — Projects — Migs`,
-			description: ogDescription(project.description)
+			description: ogDescription(project.description),
+			ogImage: project.featuredImage
 		}
 	};
 };

@@ -52,6 +52,10 @@
 </script>
 
 <section class="flex flex-col gap-section-gap">
+	<h1 class="font-dm-sans text-2xl leading-tight font-bold text-foreground sm:text-3xl md:text-4xl">
+		About
+	</h1>
+
 	<div class="space-y-6">
 		<p class="text-lg leading-relaxed text-muted-foreground sm:text-xl lg:text-2xl">
 			{#each introSegments as segment}
