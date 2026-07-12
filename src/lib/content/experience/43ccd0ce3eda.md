@@ -2,7 +2,7 @@
 company: iMerchant
 position: Senior QA & Technical Integration Engineer
 location: ''
-startDate: 2026-06-27
+startDate: 2026-05-27
 endDate: ''
 current: true
 dateDisplay: full
