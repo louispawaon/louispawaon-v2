@@ -4,7 +4,7 @@ description: A web-based platform that automates bulk design personalization acr
 lede: Automate design personalization, dynamic data mapping, and bulk generation so repetitive edits become a thing of the past.
 projectType: personal
 clientName: ''
-previewProblem: Organizations waste hours manually personalizing the same design over and over. Ditto lets you upload a design, connect your data, and generate hundreds of personalized outputs in seconds.
+previewProblem: Organizations waste hours manually personalizing the same design over and over.
 previewOutcome: Used at actual seminars with 50 participants - organizers went from 1 hour to under 10 minutes.
 featuredImage: /media/projects/easycert/opengraph-image.png
 gallery:
