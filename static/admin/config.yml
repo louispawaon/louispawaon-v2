@@ -81,7 +81,8 @@ collections:
     sortable_fields:
       - commit_date
       - commit_author
-      - title
+      - company
+      - startDate
     fields:
       - { label: Company, name: company, widget: string, required: true }
       - { label: Position, name: position, widget: string, required: true }
