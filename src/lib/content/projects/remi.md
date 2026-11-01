@@ -6,8 +6,11 @@ projectType: personal
 clientName: ''
 previewProblem: Media lists are scattered across a dozen services, and none of them make something you can keep.
 previewOutcome: Remi turns nine media APIs into one local wall you can export in a click.
-featuredImage: ''
-gallery: []
+featuredImage: /media/projects/remi/opengraph-image.png
+gallery:
+  - /media/projects/remi/remi-add.png
+  - /media/projects/remi/remi-arrange.png
+  - /media/projects/remi/remi-export.png
 problem:
   context: The things I love live in a dozen different apps, and none of them make something you can hang on a wall.
   subcontext: Anime lives on AniList, films on TMDB, games in a spreadsheet, music and podcasts somewhere else entirely. I wanted one place to search all of it, arrange it the way a room looks, and export the result as a single image — running on my own machine, with no account and no uploads.
@@ -31,10 +34,10 @@ technologies:
 roles:
   - Designer & Developer
 githubUrl: https://github.com/louispawaon/remi
-demoUrl: ''
-featured: false
-status: In Progress
-ifLive: false
+demoUrl: https://remi.project1of1.com/
+featured: true
+status: Completed
+ifLive: true
 underNda: false
 hasDetailPage: true
 ---
