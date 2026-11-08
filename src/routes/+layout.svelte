@@ -83,7 +83,6 @@
 	);
 
 	const isProjectDetailPage = $derived(/^\/projects\/[^/]+$/.test(page.url.pathname));
-	const isPagesDevHost = $derived(page.url.host.endsWith('.pages.dev'));
 
 	// --- JSON-LD Structured Data ---
 	const websiteSchema = $derived({
@@ -157,7 +156,7 @@
 
 <svelte:head>
 	<title>{documentTitle}</title>
-	{#if page.error || isPagesDevHost}
+	{#if page.error}
 		<meta name="robots" content="noindex" />
 	{/if}
 	<link rel="canonical" href={canonicalUrl} />
