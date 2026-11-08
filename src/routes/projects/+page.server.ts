@@ -20,7 +20,7 @@ export const load: PageServerLoad = () => {
 	return {
 		yearGroups,
 		meta: {
-			title: 'Projects — Migs',
+			title: 'Projects — Louis Pawaon (Migs)',
 			description
 		}
 	};

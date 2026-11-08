@@ -4,16 +4,19 @@
 	let {
 		title,
 		role,
-		tagline
+		tagline,
+		as = 'h1'
 	}: {
 		title: string;
 		role: string;
 		tagline: string;
+		as?: 'h1' | 'p';
 	} = $props();
 </script>
 
 <section class="space-y-4 sm:space-y-6">
-	<h1
+	<svelte:element
+		this={as}
 		class="flex flex-wrap items-center gap-x-2 gap-y-1 text-4xl leading-[1.05] font-semibold sm:gap-x-3 sm:gap-y-2 md:text-5xl lg:text-8xl"
 	>
 		<span> hi </span>
@@ -36,7 +39,7 @@
 			/>
 		</a>
 		<span>here.</span>
-	</h1>
+	</svelte:element>
 
 	<p class="text-2xl font-medium text-muted-foreground md:text-3xl lg:text-[36px]">
 		{role}

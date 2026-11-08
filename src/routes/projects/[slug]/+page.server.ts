@@ -19,7 +19,7 @@ export const load: PageServerLoad = ({ params }) => {
 		displayRoles: rolesForHomepage(project),
 		carouselImages: getCarouselImages(project),
 		meta: {
-			title: `${project.title} — Projects — Migs`,
+			title: `${project.title} — Projects — Louis Pawaon`,
 			description: ogDescription(project.description),
 			ogImage: project.featuredImage
 		}

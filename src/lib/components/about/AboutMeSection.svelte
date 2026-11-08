@@ -53,7 +53,7 @@
 
 <section class="flex flex-col gap-section-gap">
 	<h1 class="font-dm-sans text-2xl leading-tight font-bold text-foreground sm:text-3xl md:text-4xl">
-		About
+		About Louis Pawaon
 	</h1>
 
 	<div class="space-y-6">

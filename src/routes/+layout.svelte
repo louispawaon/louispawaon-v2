@@ -7,6 +7,14 @@
 	import { tick } from 'svelte';
 	import { DEFAULT_LOCATION, getCurrentTime } from '$lib/utils';
 	import { flyUnlessReduced } from '$lib/utils/motion-transitions';
+	import {
+		absoluteUrl,
+		jsonLd,
+		SITE_ALTERNATE_NAMES,
+		SITE_NAME,
+		SITE_ORIGIN,
+		SITE_TITLE
+	} from '$lib/site';
 	import type { LayoutData } from './$types';
 
 	let mainEl = $state<HTMLElement | null>(null);
@@ -63,30 +71,31 @@
 		children: any;
 	} = $props();
 
-	const documentTitle = $derived(page.data.meta?.title ?? 'Migs Pawaon — Full-Stack Developer');
+	const documentTitle = $derived(page.data.meta?.title ?? SITE_TITLE);
 	const metaDescription = $derived(
 		page.data.meta?.description ?? page.data.ogDefaultDescription ?? ''
 	);
-	const canonicalUrl = $derived(`${page.url.origin}${page.url.pathname}`);
-	const ogImageUrl = $derived.by(() => {
-		const img = page.data.meta?.ogImage;
-		if (img) {
-			if (img.startsWith('http://') || img.startsWith('https://') || img.startsWith('//')) return img;
-			if (img.startsWith('/')) return `${page.url.origin}${img}`;
-			return `${page.url.origin}/${img}`;
-		}
-		return `${page.url.origin}/media/openimage.png`;
-	});
+	const canonicalUrl = $derived(absoluteUrl(page.url.pathname));
+	const ogImageUrl = $derived(
+		page.data.meta?.ogImage
+			? absoluteUrl(page.data.meta.ogImage)
+			: `${SITE_ORIGIN}/media/openimage.png`
+	);
 
 	const isProjectDetailPage = $derived(/^\/projects\/[^/]+$/.test(page.url.pathname));
+	const isPagesDevHost = $derived(page.url.host.endsWith('.pages.dev'));
 
 	// --- JSON-LD Structured Data ---
 	const websiteSchema = $derived({
 		'@context': 'https://schema.org',
 		'@type': 'WebSite',
-		name: 'Migs',
-		url: page.url.origin,
-		description: page.data.ogDefaultDescription ?? ''
+		'@id': `${SITE_ORIGIN}/#website`,
+		name: SITE_NAME,
+		alternateName: 'Migs Pawaon',
+		url: SITE_ORIGIN,
+		description: page.data.ogDefaultDescription ?? '',
+		inLanguage: 'en',
+		publisher: { '@id': `${SITE_ORIGIN}/#person` }
 	});
 
 	const personSameAs = $derived(
@@ -100,10 +109,12 @@
 	const personSchema = $derived({
 		'@context': 'https://schema.org',
 		'@type': 'Person',
-		name: 'Louis Miguel Pawaon',
-		alternateName: 'Migs',
+		'@id': `${SITE_ORIGIN}/#person`,
+		name: SITE_NAME,
+		alternateName: [...SITE_ALTERNATE_NAMES],
 		jobTitle: 'Full-Stack Developer',
-		url: page.url.origin,
+		url: SITE_ORIGIN,
+		image: `${SITE_ORIGIN}/media/openimage.png`,
 		sameAs: personSameAs,
 		...(personEmail ? { email: personEmail } : {}),
 		address: {
@@ -117,18 +128,17 @@
 		if (!isProjectDetailPage) return null;
 		const projectTitle = (page.data.project as { title: string } | undefined)?.title;
 		if (!projectTitle) return null;
-		const origin = page.url.origin;
 		return {
 			'@context': 'https://schema.org',
 			'@type': 'BreadcrumbList',
 			itemListElement: [
-				{ '@type': 'ListItem', position: 1, name: 'Home', item: origin },
-				{ '@type': 'ListItem', position: 2, name: 'Projects', item: `${origin}/projects` },
+				{ '@type': 'ListItem', position: 1, name: 'Home', item: SITE_ORIGIN },
+				{ '@type': 'ListItem', position: 2, name: 'Projects', item: `${SITE_ORIGIN}/projects` },
 				{
 					'@type': 'ListItem',
 					position: 3,
 					name: projectTitle,
-					item: `${origin}${page.url.pathname}`
+					item: `${SITE_ORIGIN}${page.url.pathname}`
 				}
 			]
 		};
@@ -147,29 +157,38 @@
 
 <svelte:head>
 	<title>{documentTitle}</title>
+	{#if page.error || isPagesDevHost}
+		<meta name="robots" content="noindex" />
+	{/if}
 	<link rel="canonical" href={canonicalUrl} />
 	<meta name="description" content={metaDescription} />
-	<meta name="author" content="Louis Miguel Pawaon" />
+	<meta name="author" content={SITE_NAME} />
 
-	<meta property="og:type" content="website" />
+	<meta property="og:type" content={isProjectDetailPage ? 'article' : 'website'} />
+	<meta property="og:site_name" content="Migs Pawaon" />
 	<meta property="og:url" content={canonicalUrl} />
 	<meta property="og:title" content={documentTitle} />
 	<meta property="og:description" content={metaDescription} />
 	<meta property="og:image" content={ogImageUrl} />
-	<meta property="og:image:width" content="1584" />
-	<meta property="og:image:height" content="768" />
-	<meta property="og:image:type" content="image/png" />
+	{#if !page.data.meta?.ogImage}
+		<meta property="og:image:width" content="1584" />
+		<meta property="og:image:height" content="768" />
+		<meta property="og:image:type" content="image/png" />
+	{/if}
 
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content={documentTitle} />
 	<meta name="twitter:description" content={metaDescription} />
 	<meta name="twitter:image" content={ogImageUrl} />
 
-	<script type="application/ld+json">{@html JSON.stringify(websiteSchema)}</script>
-	<script type="application/ld+json">{@html JSON.stringify(personSchema)}</script>
+	<!-- jsonLd() escapes `<`, so this HTML is generated from our own data. -->
+	<!-- eslint-disable svelte/no-at-html-tags -->
+	{@html jsonLd(websiteSchema)}
+	{@html jsonLd(personSchema)}
 	{#if breadcrumbSchema}
-		<script type="application/ld+json">{@html JSON.stringify(breadcrumbSchema)}</script>
+		{@html jsonLd(breadcrumbSchema)}
 	{/if}
+	<!-- eslint-enable svelte/no-at-html-tags -->
 
 	<link rel="icon" href="/migs-font.svg" type="image/svg+xml" />
 	<link rel="preload" as="image" href="/migs-font.svg" />
@@ -179,7 +198,7 @@
 		rel="preload"
 		as="style"
 		href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Epilogue:ital,wght@0,100..900;1,100..900&display=swap"
-		onload={e => (e.currentTarget as HTMLLinkElement).rel = 'stylesheet'}
+		onload={(e) => ((e.currentTarget as HTMLLinkElement).rel = 'stylesheet')}
 	/>
 	<noscript>
 		<link
@@ -195,9 +214,10 @@
 	{:else}
 		<div class="flex min-h-screen flex-col md:h-screen md:flex-row md:overflow-hidden">
 			<SidebarShell
-				title="Migs"
+				title="Migs Pawaon"
 				role="Full-Stack Developer"
 				tagline="I make things that make other things easier."
+				heroAs={page.url.pathname === '/' ? 'h1' : 'p'}
 				links={data.settings.sidebarLinks}
 				socialLinks={data.settings.socialLinks}
 				{footerTime}

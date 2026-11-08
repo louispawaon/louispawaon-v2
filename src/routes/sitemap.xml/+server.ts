@@ -1,9 +1,10 @@
+import { SITE_ORIGIN } from '$lib/site';
 import { loadAllProjects } from '$lib/utils/projects';
 
 export const prerender = true;
 
-export async function GET({ url }) {
-	const origin = url.origin;
+export async function GET() {
+	const origin = SITE_ORIGIN;
 
 	type SitemapEntry = {
 		loc: string;

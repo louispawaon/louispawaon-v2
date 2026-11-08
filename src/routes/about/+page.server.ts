@@ -22,6 +22,10 @@ export const load: PageServerLoad = async () => {
 	return {
 		about,
 		techStack,
-		meta: { title: 'About — Migs' }
+		meta: {
+			title: 'About Louis Pawaon (Migs) — Full-Stack Developer',
+			description:
+				'About Louis Miguel Pawaon, also known as Migs — a full-stack developer in Davao City, Philippines, building clean, practical web experiences.'
+		}
 	};
 };

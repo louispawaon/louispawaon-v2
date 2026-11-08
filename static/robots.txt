@@ -2,4 +2,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://louispawaon.dev/sitemap.xml
+Sitemap: https://louispawaon.filli.me/sitemap.xml

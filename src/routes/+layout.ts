@@ -1,3 +1,4 @@
+import { SITE_DESCRIPTION, SITE_TITLE } from '$lib/site';
 import type { LayoutLoad } from './$types';
 
 export type SiteSettings = {
@@ -9,8 +10,7 @@ export type SiteSettings = {
 	}>;
 };
 
-const OG_DEFAULT_DESCRIPTION =
-	'Full-stack developer building clean, practical web experiences. Based in Davao City, Philippines.';
+const OG_DEFAULT_DESCRIPTION = SITE_DESCRIPTION;
 
 export const load: LayoutLoad = async () => {
 	const mod = await import('$lib/content/site/settings.json');
@@ -18,7 +18,7 @@ export const load: LayoutLoad = async () => {
 
 	return {
 		settings,
-		meta: { title: 'Migs Pawaon — Full-Stack Developer', description: OG_DEFAULT_DESCRIPTION },
+		meta: { title: SITE_TITLE, description: OG_DEFAULT_DESCRIPTION },
 		ogDefaultDescription: OG_DEFAULT_DESCRIPTION
 	};
 };
